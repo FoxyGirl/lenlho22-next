@@ -1,6 +1,6 @@
 import nookies from "nookies";
-import writeFileAsync from "../helpers/writeFile";
-import readFileAsync from "../helpers/readFile";
+import writeFile from "../helpers/writeFile";
+import readFile from "../helpers/readFile";
 import getRandomKey from "../helpers/getRandomKey";
 import { getGreetingText } from "../helpers/utils";
 
@@ -10,7 +10,7 @@ export const getServerSideProps = async (ctx) => {
   const { userId } = cookies;
   let user;
 
-  let data = (await readFileAsync()) || [];
+  let data = (await readFile("users.json")) || [];
 
   if (!userId) {
     const newUserId = getRandomKey();
@@ -22,7 +22,7 @@ export const getServerSideProps = async (ctx) => {
     });
 
     data = [...data, user];
-    writeFileAsync(data);
+    writeFile(data);
   } else {
     user = [...data].find((item) => item.userId === userId);
 
@@ -34,7 +34,7 @@ export const getServerSideProps = async (ctx) => {
       data = [...data].map((item) => (item.userId === userId ? user : item));
     }
 
-    writeFileAsync(data);
+    writeFile(data);
   }
 
   return {
