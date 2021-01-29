@@ -3,13 +3,15 @@ import writeFile from "./writeFile";
 import readFile from "./readFile";
 import getRandomKey from "./getRandomKey";
 
+const userFile = "users.json";
+
 export const setUser = async (context) => {
   const cookies = nookies.get(context);
 
   const { userId } = cookies;
   let user;
 
-  let data = (await readFile("users.json")) || [];
+  let data = (await readFile(userFile)) || [];
 
   if (!userId) {
     const newUserId = getRandomKey();
@@ -21,7 +23,7 @@ export const setUser = async (context) => {
     });
 
     data = [...data, user];
-    writeFile(data);
+    writeFile(userFile, data);
   } else {
     user = [...data].find((item) => item.userId === userId);
 
@@ -33,7 +35,7 @@ export const setUser = async (context) => {
       data = [...data].map((item) => (item.userId === userId ? user : item));
     }
 
-    writeFile(data);
+    writeFile(userFile, data);
   }
 
   return user;
@@ -45,7 +47,7 @@ export const getUser = async (context) => {
   const { userId } = cookies;
   let user;
 
-  let data = (await readFile("users.json")) || [];
+  let data = (await readFile(userFile)) || [];
 
   if (!userId) {
     const newUserId = getRandomKey();
@@ -57,12 +59,10 @@ export const getUser = async (context) => {
     });
 
     data = [...data, user];
-    writeFile(data);
+    writeFile(userFile, data);
   } else {
     user = [...data].find((item) => item.userId === userId);
   }
-
-  console.log("user", user);
 
   return user;
 };
