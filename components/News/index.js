@@ -1,12 +1,19 @@
 const News = ({ news }) => {
-  console.log("News!");
-
   return (
-    <ul>
-      {news.map((item) => (
-        <li key={item.id}>{item.content}</li>
-      ))}
-    </ul>
+    <section>
+      <h2>News</h2>
+
+      <ul>
+        {news.map(({ id, content, dateOfReceiving }) => (
+          <li key={id}>
+            <p>{content}</p>
+            <div style={{ color: "blue", textAlign: "right" }}>
+              {dateOfReceiving}
+            </div>
+          </li>
+        ))}
+      </ul>
+    </section>
   );
 };
 
