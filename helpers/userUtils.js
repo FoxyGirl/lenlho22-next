@@ -38,3 +38,31 @@ export const setUser = async (context) => {
 
   return user;
 };
+
+export const getUser = async (context) => {
+  const cookies = nookies.get(context);
+
+  const { userId } = cookies;
+  let user;
+
+  let data = (await readFile("users.json")) || [];
+
+  if (!userId) {
+    const newUserId = getRandomKey();
+    user = { userId: newUserId, visitCounts: 1 };
+
+    nookies.set(context, "userId", newUserId, {
+      maxAge: 30 * 24 * 60 * 60,
+      path: "/",
+    });
+
+    data = [...data, user];
+    writeFile(data);
+  } else {
+    user = [...data].find((item) => item.userId === userId);
+  }
+
+  console.log("user", user);
+
+  return user;
+};
