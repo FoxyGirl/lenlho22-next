@@ -1,11 +1,26 @@
-export const getGreetingText = (counts) => {
+import { USER_STATUS } from "./constants";
+
+export const getUserStatus = (counts) => {
   if (counts < 3) {
-    return "Приветствуем тебя странник!";
+    return USER_STATUS.GUEST;
   }
 
   if (counts < 5) {
-    return "Приветствуем тебя друг!";
+    return USER_STATUS.FRIEND;
   }
 
-  return "Добро пожаловать в семью!";
+  return USER_STATUS.FAMILY;
+};
+
+export const getGreetingText = (userStatus) => {
+  switch (userStatus) {
+    case USER_STATUS.GUEST:
+      return "Приветствуем тебя странник!";
+    case USER_STATUS.FRIEND:
+      return "Приветствуем тебя друг!";
+    case USER_STATUS.FAMILY:
+      return "Добро пожаловать в семью!";
+    default:
+      return "Неизвестный статус";
+  }
 };
