@@ -8,6 +8,7 @@ import { userActions } from "../bus/user/actions";
 import { setUser } from "../helpers/userUtils";
 
 import Message from "../components/Message";
+import Menu from "../components/Menu";
 
 export const getServerSideProps = async (context) => {
   const user = await setUser(context);
@@ -30,6 +31,7 @@ const Home = () => {
 
   return (
     <>
+      <Menu />
       <Message />
       {/* <h4>First name: {firstName}</h4> */}
       {/* <h4>Last name: {lastName}</h4> */}

@@ -9,6 +9,7 @@ import { getUser } from "../helpers/userUtils";
 import { getUserStatus } from "../helpers/utils";
 import { getDataFromFile } from "../helpers/dataUtils";
 
+import Menu from "../components/Menu";
 import News from "../components/News";
 import Discounts from "../components/Discounts";
 import Cars from "../components/Cars";
@@ -62,6 +63,7 @@ const Dashboard = ({ news, discounts, cars }) => {
 
   return (
     <div style={{ maxWidth: 600, margin: "0 auto" }}>
+      <Menu />
       {/* <h4>First name: {firstName}</h4> */}
       {/* <h4>Last name: {lastName}</h4> */}
       {news.length > 0 && <News news={news} />}
