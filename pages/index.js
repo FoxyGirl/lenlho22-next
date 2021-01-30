@@ -1,6 +1,3 @@
-// import { useSelector } from "react-redux";
-// import Link from "next/link";
-
 import { initializeStore } from "../init/store";
 import { initilDispatcher } from "../init/initilDispatcher";
 import { userActions } from "../bus/user/actions";
@@ -27,17 +24,10 @@ export const getServerSideProps = async (context) => {
 };
 
 const Home = () => {
-  // const { firstName, lastName } = useSelector((state) => state.profile);
-
   return (
     <>
       <Menu />
       <Message />
-      {/* <h4>First name: {firstName}</h4> */}
-      {/* <h4>Last name: {lastName}</h4> */}
-      {/* <p>
-        <Link href="./redux">Redux page</Link>
-      </p> */}
     </>
   );
 };
