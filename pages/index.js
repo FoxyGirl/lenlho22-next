@@ -1,37 +1,41 @@
-import { useSelector } from "react-redux";
-import Link from "next/link";
+// import { useSelector } from "react-redux";
+// import Link from "next/link";
 
 import { initializeStore } from "../init/store";
 import { initilDispatcher } from "../init/initilDispatcher";
+import { userActions } from "../bus/user/actions";
 
 import { setUser } from "../helpers/userUtils";
-import { getGreetingText, getUserStatus } from "../helpers/utils";
+
+import Message from "../components/Message";
 
 export const getServerSideProps = async (context) => {
   const user = await setUser(context);
   const store = await initilDispatcher(context, initializeStore());
+  store.dispatch(userActions.fillUser(user.userId));
+  store.dispatch(userActions.setVisitCounts(user.visitCounts));
+  store.dispatch(userActions.setUserType(user.visitCounts));
 
   const initialReduxState = store.getState();
 
   return {
     props: {
-      userStatus: getUserStatus(user.visitCounts),
       initialReduxState,
     },
   };
 };
 
-const Home = ({ userStatus }) => {
-  const { firstName, lastName } = useSelector((state) => state.profile);
+const Home = () => {
+  // const { firstName, lastName } = useSelector((state) => state.profile);
 
   return (
     <>
-      <h1>{getGreetingText(userStatus)}</h1>
-      <h4>First name: {firstName}</h4>
-      <h4>Last name: {lastName}</h4>
-      <p>
+      <Message />
+      {/* <h4>First name: {firstName}</h4> */}
+      {/* <h4>Last name: {lastName}</h4> */}
+      {/* <p>
         <Link href="./redux">Redux page</Link>
-      </p>
+      </p> */}
     </>
   );
 };
