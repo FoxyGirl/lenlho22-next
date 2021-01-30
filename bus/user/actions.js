@@ -13,10 +13,10 @@ export const userActions = {
       payload: counts,
     };
   },
-  setUserType: (counts) => {
+  setUserType: (userType) => {
     return {
       type: types.SET_USER_TYPE,
-      payload: counts,
+      payload: userType,
     };
   },
 };
