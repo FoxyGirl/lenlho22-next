@@ -1,11 +1,11 @@
-import { initializeStore } from "../init/store";
-import { initilDispatcher } from "../init/initilDispatcher";
-import { setUserInState } from "../init/utils";
+import { initializeStore } from "@init/store";
+import { initilDispatcher } from "@init/initilDispatcher";
+import { setUserInState } from "@init/utils";
 
-import { getUser } from "../helpers/userUtils";
+import { getUser } from "@helpers/userUtils";
 
-import Menu from "../components/Menu";
-import User from "../components/User";
+import Menu from "@components/Menu";
+import User from "@components/User";
 
 export const getServerSideProps = async (context) => {
   const user = await getUser(context);

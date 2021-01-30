@@ -1,9 +1,9 @@
 import { useSelector, useDispatch } from "react-redux";
 
-import { userActions } from "../../bus/user/actions";
-import { increaseUserStatus } from "../../helpers/utils";
+import { userActions } from "@bus/user/actions";
+import { increaseUserStatus } from "@helpers/utils";
 
-import styles from "../../styles/User.module.css";
+import styles from "@styles/User.module.css";
 
 const User = () => {
   const dispatch = useDispatch();

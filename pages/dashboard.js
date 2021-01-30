@@ -1,17 +1,17 @@
 import { useSelector } from "react-redux";
 
-import { initializeStore } from "../init/store";
-import { initilDispatcher } from "../init/initilDispatcher";
-import { setUserInState } from "../init/utils";
+import { initializeStore } from "@init/store";
+import { initilDispatcher } from "@init/initilDispatcher";
+import { setUserInState } from "@init/utils";
 
-import { USER_STATUS } from "../helpers/constants";
-import { getUser } from "../helpers/userUtils";
-import { getDataFromFile } from "../helpers/dataUtils";
+import { USER_STATUS } from "@helpers/constants";
+import { getUser } from "@helpers/userUtils";
+import { getDataFromFile } from "@helpers/dataUtils";
 
-import Menu from "../components/Menu";
-import News from "../components/News";
-import Discounts from "../components/Discounts";
-import Cars from "../components/Cars";
+import Menu from "@components/Menu";
+import News from "@components/News";
+import Discounts from "@components/Discounts";
+import Cars from "@components/Cars";
 
 export const getServerSideProps = async (context) => {
   const user = await getUser(context);

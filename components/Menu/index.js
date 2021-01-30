@@ -1,5 +1,5 @@
-import ActiveLink from "../ActiveLink";
-import styles from "../../styles/Menu.module.css";
+import ActiveLink from "@components/ActiveLink";
+import styles from "@styles/Menu.module.css";
 
 const menu = [
   {

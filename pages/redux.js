@@ -1,7 +1,7 @@
 import { useSelector } from "react-redux";
-import { initializeStore } from "../init/store";
-import { initilDispatcher } from "../init/initilDispatcher";
-import { profileActions } from "../bus/profile/actions";
+import { initializeStore } from "@init/store";
+import { initilDispatcher } from "@init/initilDispatcher";
+import { profileActions } from "@bus/profile/actions";
 
 export const getServerSideProps = async (context) => {
   // initilDispatcher dispathes commom actions for all pages

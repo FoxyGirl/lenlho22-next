@@ -1,5 +1,5 @@
 import { useSelector } from "react-redux";
-import { getGreetingText } from "../../helpers/utils";
+import { getGreetingText } from "@helpers/utils";
 
 const Message = () => {
   const { userType } = useSelector((state) => state.user);

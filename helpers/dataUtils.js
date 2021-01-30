@@ -1,4 +1,4 @@
-import readFile from "../helpers/readFile";
+import readFile from "@helpers/readFile";
 
 const getDateOfReceiving = () => {
   const options = {

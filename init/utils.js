@@ -1,5 +1,5 @@
-import { userActions } from "../bus/user/actions";
-import { getUserStatus } from "../helpers/utils";
+import { userActions } from "@bus/user/actions";
+import { getUserStatus } from "@helpers/utils";
 
 export const setUserInState = (store, user) => {
   const userStatus = getUserStatus(user.visitCounts);
