@@ -100,7 +100,7 @@ const Dashboard = () => {
           ))}
         </ul>
       </div>
-      {news.length > 0 && <News news={news} />}
+      {news.length > 0 && <News />}
       {discounts.length > 0 &&
         (userType === USER_STATUS.FRIEND ||
           userType === USER_STATUS.FAMILY) && (

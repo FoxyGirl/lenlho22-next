@@ -1,15 +1,17 @@
-const News = ({ news }) => {
+import InfoItem from "@components/InfoItem";
+import { useSelector } from "react-redux";
+
+const News = () => {
+  const { news } = useSelector((state) => state);
+
   return (
     <section>
       <h2>News</h2>
 
       <ul>
-        {news.map(({ id, content, dateOfReceiving }) => (
-          <li key={id}>
-            <p>{content}</p>
-            <div style={{ color: "blue", textAlign: "right" }}>
-              {dateOfReceiving}
-            </div>
+        {news.map((item) => (
+          <li key={item.id}>
+            <InfoItem item={item} />
           </li>
         ))}
       </ul>
