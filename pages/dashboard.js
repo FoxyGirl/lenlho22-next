@@ -80,16 +80,18 @@ const Dashboard = () => {
       <Menu />
       <div className={styles.container}>
         <ul className={styles.wrap}>
-          {dashboardMenu.map(({ id, href, name }) => (
-            <li key={id}>
+          {dashboardMenu.map(({ id: menuId, href, name }) => (
+            <li key={menuId}>
               <Link href={href}>
                 <a>{name}</a>
               </Link>
-              {mapSubmenu[id].length > 0 ? (
+              {mapSubmenu[menuId].length > 0 ? (
                 <ul>
-                  {mapSubmenu[id].map(({ id }) => (
+                  {mapSubmenu[menuId].map(({ id }) => (
                     <li key={id}>
-                      <p>{id}</p>
+                      <Link href={`/${menuId}/${encodeURIComponent(id)}`}>
+                        <a>{`${menuId} - ${id}`}</a>
+                      </Link>
                     </li>
                   ))}
                 </ul>
