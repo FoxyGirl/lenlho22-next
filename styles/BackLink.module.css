@@ -1,0 +1,19 @@
+.link {
+  position: relative;
+  font-weight: bold;
+  font-size: 20px;
+  color: blue;
+  cursor: pointer;
+}
+
+.link::before {
+  content: "<-";
+  display: inline-block;
+  vertical-align: baseline;
+  margin-right: 10px;
+}
+
+.link:hover,
+.link:focus {
+  color: darkblue;
+}

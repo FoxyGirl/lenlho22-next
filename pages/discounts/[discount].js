@@ -8,6 +8,7 @@ import { getDataFromFile } from "@helpers/dataUtils";
 
 import Menu from "@components/Menu";
 import Discount from "@components/Discount";
+import BackLink from "@components/BackLink";
 
 export const getServerSideProps = async (context) => {
   const user = await getUser(context);
@@ -30,6 +31,9 @@ const DiscountPage = () => {
   return (
     <div style={{ maxWidth: 600, margin: "0 auto", padding: 20 }}>
       <Menu />
+      <p>
+        <BackLink />
+      </p>
       <h1>Discount</h1>
       <Discount />
     </div>
