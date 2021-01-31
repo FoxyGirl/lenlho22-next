@@ -1,5 +1,3 @@
-import { useSelector } from "react-redux";
-
 import { initializeStore } from "@init/store";
 import { initilDispatcher } from "@init/initilDispatcher";
 import { setUserInState } from "@init/utils";
@@ -30,12 +28,10 @@ export const getServerSideProps = async (context) => {
 };
 
 const NewsPage = () => {
-  const { news } = useSelector((state) => state);
-
   return (
     <div style={{ maxWidth: 600, margin: "0 auto", padding: 20 }}>
       <Menu />
-      {news.length > 0 && <News news={news} />}
+      <News />
     </div>
   );
 };

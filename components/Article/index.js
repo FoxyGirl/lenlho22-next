@@ -10,10 +10,7 @@ const Article = () => {
   const articleItem = news.find(({ id }) => id === article);
 
   return (
-    <section>
-      <h2>Article</h2>
-      {articleItem && <InfoItem item={articleItem} />}
-    </section>
+    <section>{articleItem ? <InfoItem item={articleItem} /> : null}</section>
   );
 };
 

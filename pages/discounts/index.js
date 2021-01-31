@@ -1,23 +1,22 @@
 import { initializeStore } from "@init/store";
 import { initilDispatcher } from "@init/initilDispatcher";
 import { setUserInState } from "@init/utils";
-import { newsActions } from "@bus/news/actions";
+import { discountsActions } from "@bus/discounts/actions";
 
 import { getUser } from "@helpers/userUtils";
 import { getDataFromFile } from "@helpers/dataUtils";
 
 import Menu from "@components/Menu";
-import Article from "@components/Article";
+import Discounts from "@components/Discounts";
 
 export const getServerSideProps = async (context) => {
   const user = await getUser(context);
   const store = await initilDispatcher(context, initializeStore());
   setUserInState(store, user);
 
-  const getNews = getDataFromFile("news.json");
-  const news = await getNews();
+  const discounts = await getDataFromFile("discounts.json")();
 
-  store.dispatch(newsActions.fillNews(news));
+  store.dispatch(discountsActions.fillDiscounts(discounts));
   const initialReduxState = store.getState();
 
   return {
@@ -27,13 +26,12 @@ export const getServerSideProps = async (context) => {
   };
 };
 
-const ArticlePage = () => {
+const DiscountsPage = () => {
   return (
     <div style={{ maxWidth: 600, margin: "0 auto", padding: 20 }}>
       <Menu />
-      <h1>Article</h1>
-      <Article />
+      <Discounts />
     </div>
   );
 };
-export default ArticlePage;
+export default DiscountsPage;
