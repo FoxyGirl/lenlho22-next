@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { useRouter } from "next/router";
 
 const ActiveLink = ({ children, href }) => {
@@ -10,15 +11,20 @@ const ActiveLink = ({ children, href }) => {
     textDecoration: isActive ? "none" : "",
   };
 
-  const handleClick = (e) => {
-    e.preventDefault();
-    router.push(href);
-  };
+  // const handleClick = (e) => {
+  //   e.preventDefault();
+  //   router.push(href);
+  // };
 
+  // return (
+  //   <a href={href} onClick={handleClick} style={style}>
+  //     {children}
+  //   </a>
+  // );
   return (
-    <a href={href} onClick={handleClick} style={style}>
-      {children}
-    </a>
+    <Link href={href}>
+      <a style={style}>{children}</a>
+    </Link>
   );
 };
 
