@@ -1,5 +1,4 @@
-import readFile from "../helpers/readFile";
-import writeFile from "../helpers/writeFile";
+import readFile from "@helpers/readFile";
 
 const getDateOfReceiving = () => {
   const options = {
@@ -23,8 +22,6 @@ const updateDate = (item) => ({
 export const getDataFromFile = (fileName) => async () => {
   let data = (await readFile(fileName)) || [];
   data = [...data].map(updateDate);
-
-  writeFile(fileName, data);
 
   return data;
 };

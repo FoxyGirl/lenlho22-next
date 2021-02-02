@@ -24,3 +24,16 @@ export const getGreetingText = (userStatus) => {
       return "Неизвестный статус";
   }
 };
+
+export const increaseUserStatus = (userStatus) => {
+  switch (userStatus) {
+    case USER_STATUS.GUEST:
+      return USER_STATUS.FRIEND;
+    case USER_STATUS.FRIEND:
+      return USER_STATUS.FAMILY;
+    case USER_STATUS.FAMILY:
+      return USER_STATUS.FAMILY;
+    default:
+      return "Unknown";
+  }
+};

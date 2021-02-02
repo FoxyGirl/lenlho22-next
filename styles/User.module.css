@@ -1,0 +1,26 @@
+.btn {
+  padding: 5px 10px;
+  background-color: blue;
+  color: white;
+  border: none;
+  font-weight: bold;
+  outline: none;
+  transition: all 0.3s;
+}
+
+.btn:hover,
+.btn:focus {
+  background-color: darkblue;
+}
+
+.info {
+  width: 400px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.footer {
+  padding: 20px;
+  margin-top: 40px;
+  text-align: right;
+}
