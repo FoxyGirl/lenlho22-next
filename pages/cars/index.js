@@ -3,6 +3,7 @@ import { initilDispatcher } from "@init/initilDispatcher";
 import { carsActions } from "@bus/cars/actions";
 
 import { getDataFromFile } from "@helpers/dataUtils";
+import { PAGE_STYLES } from "@helpers/constants";
 import { useStatusRedirect } from "@hooks/statusRedirectHooks";
 
 import Menu from "@components/Menu";
@@ -28,11 +29,9 @@ const CarsPage = () => {
   useStatusRedirect();
 
   return (
-    <div style={{ maxWidth: 600, margin: "0 auto", padding: 20 }}>
+    <div style={PAGE_STYLES}>
       <Menu />
-      <p>
-        <BackLink />
-      </p>
+      <BackLink />
       <Cars />
     </div>
   );

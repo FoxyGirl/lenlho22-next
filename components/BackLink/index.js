@@ -11,9 +11,11 @@ const BackLink = () => {
   };
 
   return (
-    <a className={styles.link} onClick={handleClick}>
-      Back
-    </a>
+    <p>
+      <a className={styles.link} onClick={handleClick}>
+        Back
+      </a>
+    </p>
   );
 };
 

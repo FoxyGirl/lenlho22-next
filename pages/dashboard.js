@@ -7,7 +7,7 @@ import { newsActions } from "@bus/news/actions";
 import { discountsActions } from "@bus/discounts/actions";
 import { carsActions } from "@bus/cars/actions";
 
-import { USER_STATUS } from "@helpers/constants";
+import { PAGE_STYLES } from "@helpers/constants";
 import { getDataFromFile } from "@helpers/dataUtils";
 import {
   useSynchronizeNews,
@@ -16,9 +16,6 @@ import {
 } from "@hooks/synchronizeHooks";
 
 import Menu from "@components/Menu";
-import News from "@components/News";
-import Discounts from "@components/Discounts";
-import Cars from "@components/Cars";
 
 import styles from "@styles/Dashboard.module.css";
 
@@ -69,7 +66,6 @@ const DashboardPage = ({ initialReduxState }) => {
   useSynchronizeDiscounts(initialReduxState);
   useSynchronizeCars(initialReduxState);
 
-  const { userType } = useSelector((state) => state.user);
   const { news } = useSelector((state) => state);
   const { discounts } = useSelector((state) => state);
   const { cars } = useSelector((state) => state);
@@ -80,40 +76,34 @@ const DashboardPage = ({ initialReduxState }) => {
     cars,
   };
 
+  const renderSubmenuJSX = (menuId) =>
+    mapSubmenu[menuId].length > 0 ? (
+      <ul>
+        {mapSubmenu[menuId].map(({ id }) => (
+          <li key={id}>
+            <Link href={`/${menuId}/${encodeURIComponent(id)}`}>
+              <a>{`${menuId} - ${id}`}</a>
+            </Link>
+          </li>
+        ))}
+      </ul>
+    ) : null;
+
+  const asideMenuItemsJSX = dashboardMenu.map(({ id: menuId, href, name }) => (
+    <li key={menuId}>
+      <Link href={href}>
+        <a>{name}</a>
+      </Link>
+      {renderSubmenuJSX(menuId)}
+    </li>
+  ));
+
   return (
-    <div style={{ maxWidth: 600, margin: "0 auto", padding: 20 }}>
+    <div style={PAGE_STYLES}>
       <Menu />
       <div className={styles.container}>
-        <ul className={styles.wrap}>
-          {dashboardMenu.map(({ id: menuId, href, name }) => (
-            <li key={menuId}>
-              <Link href={href}>
-                <a>{name}</a>
-              </Link>
-              {mapSubmenu[menuId].length > 0 ? (
-                <ul>
-                  {mapSubmenu[menuId].map(({ id }) => (
-                    <li key={id}>
-                      <Link href={`/${menuId}/${encodeURIComponent(id)}`}>
-                        <a>{`${menuId} - ${id}`}</a>
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
-              ) : null}
-            </li>
-          ))}
-        </ul>
+        <ul className={styles.wrap}>{asideMenuItemsJSX}</ul>
       </div>
-      {news.length > 0 && <News />}
-      {discounts.length > 0 &&
-        (userType === USER_STATUS.FRIEND ||
-          userType === USER_STATUS.FAMILY) && (
-          <Discounts discounts={discounts} />
-        )}
-      {cars.length > 0 && userType === USER_STATUS.FAMILY && (
-        <Cars cars={cars} />
-      )}
     </div>
   );
 };

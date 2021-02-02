@@ -2,6 +2,8 @@ import { initializeStore } from "@init/store";
 import { initilDispatcher } from "@init/initilDispatcher";
 import { useSynchronizeVisitCounts } from "@hooks/synchronizeHooks";
 
+import { PAGE_STYLES } from "@helpers/constants";
+
 import Menu from "@components/Menu";
 import User from "@components/User";
 
@@ -21,7 +23,7 @@ const UserPage = ({ initialReduxState }) => {
   useSynchronizeVisitCounts(initialReduxState);
 
   return (
-    <div style={{ maxWidth: 600, margin: "0 auto", padding: 20 }}>
+    <div style={PAGE_STYLES}>
       <Menu />
       <User />
     </div>

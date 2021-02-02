@@ -3,6 +3,7 @@ import { initilDispatcher } from "@init/initilDispatcher";
 import { newsActions } from "@bus/news/actions";
 
 import { getDataFromFile } from "@helpers/dataUtils";
+import { PAGE_STYLES } from "@helpers/constants";
 
 import Menu from "@components/Menu";
 import News from "@components/News";
@@ -26,11 +27,9 @@ export const getServerSideProps = async (context) => {
 
 const NewsPage = () => {
   return (
-    <div style={{ maxWidth: 600, margin: "0 auto", padding: 20 }}>
+    <div style={PAGE_STYLES}>
       <Menu />
-      <p>
-        <BackLink />
-      </p>
+      <BackLink />
       <News />
     </div>
   );

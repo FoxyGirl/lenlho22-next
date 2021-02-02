@@ -1,6 +1,8 @@
 import { initializeStore } from "@init/store";
 import { initilDispatcher } from "@init/initilDispatcher";
 
+import { PAGE_STYLES } from "@helpers/constants";
+
 import Message from "@components/Message";
 import Menu from "@components/Menu";
 
@@ -18,7 +20,7 @@ export const getServerSideProps = async (context) => {
 
 const HomePage = () => {
   return (
-    <div style={{ maxWidth: 600, margin: "0 auto", padding: 20 }}>
+    <div style={PAGE_STYLES}>
       <Menu />
       <Message />
     </div>
