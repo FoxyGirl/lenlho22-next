@@ -8,7 +8,6 @@ import "@styles/globals.css";
 
 function MyApp({ Component, pageProps }) {
   const store = useStore(pageProps.initialReduxState);
-  console.log("APP render");
 
   return (
     <Provider store={store}>
