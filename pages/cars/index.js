@@ -3,6 +3,7 @@ import { initilDispatcher } from "@init/initilDispatcher";
 import { carsActions } from "@bus/cars/actions";
 
 import { getDataFromFile } from "@helpers/dataUtils";
+import { useStatusRedirect } from "@hooks/statusRedirectHooks";
 
 import Menu from "@components/Menu";
 import Cars from "@components/Cars";
@@ -24,6 +25,8 @@ export const getServerSideProps = async (context) => {
 };
 
 const CarsPage = () => {
+  useStatusRedirect();
+
   return (
     <div style={{ maxWidth: 600, margin: "0 auto", padding: 20 }}>
       <Menu />

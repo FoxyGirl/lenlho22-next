@@ -2,8 +2,8 @@ import { initializeStore } from "@init/store";
 import { initilDispatcher } from "@init/initilDispatcher";
 import { carsActions } from "@bus/cars/actions";
 
-import { USER_STATUS } from "@helpers/constants";
 import { getDataFromFile } from "@helpers/dataUtils";
+import { useStatusRedirect } from "@hooks/statusRedirectHooks";
 
 import Menu from "@components/Menu";
 import Car from "@components/Car";
@@ -38,6 +38,8 @@ export const getServerSideProps = async (context) => {
 };
 
 const CarPage = () => {
+  useStatusRedirect();
+
   return (
     <div style={{ maxWidth: 600, margin: "0 auto", padding: 20 }}>
       <Menu />
