@@ -1,15 +1,18 @@
-const Cars = ({ cars }) => {
+import { useSelector } from "react-redux";
+
+import InfoItem from "@components/InfoItem";
+
+const Cars = () => {
+  const { cars } = useSelector((state) => state);
+
   return (
     <section>
       <h2>Cars</h2>
 
       <ul>
-        {cars.map(({ id, content, dateOfReceiving }) => (
-          <li key={id}>
-            <p>{content}</p>
-            <div style={{ color: "blue", textAlign: "right" }}>
-              {dateOfReceiving}
-            </div>
+        {cars.map((item) => (
+          <li key={item.id}>
+            <InfoItem item={item} />
           </li>
         ))}
       </ul>

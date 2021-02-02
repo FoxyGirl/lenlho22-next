@@ -3,7 +3,7 @@ import { applyMiddleware } from "redux";
 import { createLogger } from "redux-logger";
 
 export const bindMiddleware = (middleware) => {
-  if (process.env.NODE_DEV === "development" && typeof window !== "undefined") {
+  if (process.env.NODE_ENV === "development" && typeof window !== "undefined") {
     middleware.push(
       createLogger({
         duration: true,

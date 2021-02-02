@@ -1,12 +1,20 @@
 import { initializeStore } from "@init/store";
 import { initilDispatcher } from "@init/initilDispatcher";
+import { newsActions } from "@bus/news/actions";
 
-import Message from "@components/Message";
+import { getDataFromFile } from "@helpers/dataUtils";
+
 import Menu from "@components/Menu";
+import News from "@components/News";
+import BackLink from "@components/BackLink";
 
 export const getServerSideProps = async (context) => {
   const store = await initilDispatcher(context, initializeStore());
 
+  const getNews = getDataFromFile("news.json");
+  const news = await getNews();
+
+  store.dispatch(newsActions.fillNews(news));
   const initialReduxState = store.getState();
 
   return {
@@ -16,12 +24,15 @@ export const getServerSideProps = async (context) => {
   };
 };
 
-const HomePage = () => {
+const NewsPage = () => {
   return (
     <div style={{ maxWidth: 600, margin: "0 auto", padding: 20 }}>
       <Menu />
-      <Message />
+      <p>
+        <BackLink />
+      </p>
+      <News />
     </div>
   );
 };
-export default HomePage;
+export default NewsPage;
