@@ -5,6 +5,7 @@
       "@bus/*": ["bus/*"],
       "@components/*": ["components/*"],
       "@helpers/*": ["helpers/*"],
+      "@hooks/*": ["hooks/*"],
       "@init/*": ["init/*"],
       "@styles/*": ["styles/*"]
     }

@@ -59,7 +59,7 @@ const dashboardMenu = [
   },
 ];
 
-const Dashboard = () => {
+const DashboardPage = () => {
   const { userType } = useSelector((state) => state.user);
   const { news } = useSelector((state) => state);
   const { discounts } = useSelector((state) => state);
@@ -108,4 +108,4 @@ const Dashboard = () => {
     </div>
   );
 };
-export default Dashboard;
+export default DashboardPage;

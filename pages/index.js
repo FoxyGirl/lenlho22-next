@@ -16,7 +16,7 @@ export const getServerSideProps = async (context) => {
   };
 };
 
-const Home = () => {
+const HomePage = () => {
   return (
     <div style={{ maxWidth: 600, margin: "0 auto", padding: 20 }}>
       <Menu />
@@ -24,4 +24,4 @@ const Home = () => {
     </div>
   );
 };
-export default Home;
+export default HomePage;
