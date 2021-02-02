@@ -3,13 +3,11 @@ import { useSelector } from "react-redux";
 
 import { initializeStore } from "@init/store";
 import { initilDispatcher } from "@init/initilDispatcher";
-import { setUserInState } from "@init/utils";
 import { newsActions } from "@bus/news/actions";
 import { discountsActions } from "@bus/discounts/actions";
 import { carsActions } from "@bus/cars/actions";
 
 import { USER_STATUS } from "@helpers/constants";
-import { getUser } from "@helpers/userUtils";
 import { getDataFromFile } from "@helpers/dataUtils";
 
 import Menu from "@components/Menu";
@@ -20,9 +18,7 @@ import Cars from "@components/Cars";
 import styles from "@styles/Dashboard.module.css";
 
 export const getServerSideProps = async (context) => {
-  const user = await getUser(context);
   const store = await initilDispatcher(context, initializeStore());
-  setUserInState(store, user);
 
   const getNews = getDataFromFile("news.json");
   const getDiscounts = getDataFromFile("discounts.json");

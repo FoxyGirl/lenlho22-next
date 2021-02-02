@@ -1,16 +1,11 @@
 import { initializeStore } from "@init/store";
 import { initilDispatcher } from "@init/initilDispatcher";
-import { setUserInState } from "@init/utils";
-
-import { setUser } from "@helpers/userUtils";
 
 import Message from "@components/Message";
 import Menu from "@components/Menu";
 
 export const getServerSideProps = async (context) => {
-  const user = await setUser(context);
   const store = await initilDispatcher(context, initializeStore());
-  setUserInState(store, user);
 
   const initialReduxState = store.getState();
 
