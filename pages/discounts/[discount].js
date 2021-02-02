@@ -3,6 +3,7 @@ import { initilDispatcher } from "@init/initilDispatcher";
 import { discountsActions } from "@bus/discounts/actions";
 
 import { getDataFromFile } from "@helpers/dataUtils";
+import { useStatusRedirect } from "@hooks/statusRedirectHooks";
 
 import Menu from "@components/Menu";
 import Discount from "@components/Discount";
@@ -37,6 +38,8 @@ export const getServerSideProps = async (context) => {
 };
 
 const DiscountPage = () => {
+  useStatusRedirect();
+
   return (
     <div style={{ maxWidth: 600, margin: "0 auto", padding: 20 }}>
       <Menu />
