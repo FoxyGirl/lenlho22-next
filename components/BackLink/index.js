@@ -7,7 +7,6 @@ const BackLink = () => {
 
   const handleClick = (e) => {
     e.preventDefault();
-    console.log("Back!");
     router.back();
   };
 

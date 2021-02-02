@@ -10,7 +10,7 @@ export const initilDispatcher = async (context, store) => {
   const user = await setUser(context);
   setUserInState(store, user);
 
-  console.log("First initilDispatcher user", store.getState().user);
+  // console.log("First initilDispatcher user", store.getState().user);
 
   return store;
 };

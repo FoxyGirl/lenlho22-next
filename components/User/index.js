@@ -28,7 +28,7 @@ const User = () => {
 
       <footer className={styles.footer}>
         <button className={styles.btn} onClick={handleOnCLick}>
-          Увеличить ваш статус
+          Временно повысить свой статус
         </button>
       </footer>
     </>

@@ -9,6 +9,11 @@ import { carsActions } from "@bus/cars/actions";
 
 import { USER_STATUS } from "@helpers/constants";
 import { getDataFromFile } from "@helpers/dataUtils";
+import {
+  useSynchronizeNews,
+  useSynchronizeDiscounts,
+  useSynchronizeCars,
+} from "@hooks/synchronizeHooks";
 
 import Menu from "@components/Menu";
 import News from "@components/News";
@@ -59,7 +64,11 @@ const dashboardMenu = [
   },
 ];
 
-const DashboardPage = () => {
+const DashboardPage = ({ initialReduxState }) => {
+  useSynchronizeNews(initialReduxState);
+  useSynchronizeDiscounts(initialReduxState);
+  useSynchronizeCars(initialReduxState);
+
   const { userType } = useSelector((state) => state.user);
   const { news } = useSelector((state) => state);
   const { discounts } = useSelector((state) => state);

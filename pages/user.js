@@ -1,6 +1,6 @@
 import { initializeStore } from "@init/store";
 import { initilDispatcher } from "@init/initilDispatcher";
-import { useSynchronizeVisitCounts } from "@hooks/useSynchronizeVisitCounts";
+import { useSynchronizeVisitCounts } from "@hooks/synchronizeHooks";
 
 import Menu from "@components/Menu";
 import User from "@components/User";
