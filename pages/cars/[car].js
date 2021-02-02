@@ -1,9 +1,8 @@
 import { initializeStore } from "@init/store";
 import { initilDispatcher } from "@init/initilDispatcher";
-import { setUserInState } from "@init/utils";
 import { carsActions } from "@bus/cars/actions";
 
-import { getUser } from "@helpers/userUtils";
+import { USER_STATUS } from "@helpers/constants";
 import { getDataFromFile } from "@helpers/dataUtils";
 
 import Menu from "@components/Menu";
@@ -11,11 +10,22 @@ import Car from "@components/Car";
 import BackLink from "@components/BackLink";
 
 export const getServerSideProps = async (context) => {
-  const user = await getUser(context);
   const store = await initilDispatcher(context, initializeStore());
-  setUserInState(store, user);
-
   const cars = await getDataFromFile("cars.json")();
+
+  const {
+    query: { car },
+  } = context;
+
+  const curentItem = cars.find(({ id }) => id === car);
+
+  if (!curentItem) {
+    return {
+      redirect: {
+        destination: "/404",
+      },
+    };
+  }
 
   store.dispatch(carsActions.fillCars(cars));
   const initialReduxState = store.getState();

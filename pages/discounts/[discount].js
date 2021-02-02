@@ -1,9 +1,7 @@
 import { initializeStore } from "@init/store";
 import { initilDispatcher } from "@init/initilDispatcher";
-import { setUserInState } from "@init/utils";
 import { discountsActions } from "@bus/discounts/actions";
 
-import { getUser } from "@helpers/userUtils";
 import { getDataFromFile } from "@helpers/dataUtils";
 
 import Menu from "@components/Menu";
@@ -11,11 +9,22 @@ import Discount from "@components/Discount";
 import BackLink from "@components/BackLink";
 
 export const getServerSideProps = async (context) => {
-  const user = await getUser(context);
   const store = await initilDispatcher(context, initializeStore());
-  setUserInState(store, user);
-
   const discounts = await getDataFromFile("discounts.json")();
+
+  const {
+    query: { discount },
+  } = context;
+
+  const curentItem = discounts.find(({ id }) => id === discount);
+
+  if (!curentItem) {
+    return {
+      redirect: {
+        destination: "/404",
+      },
+    };
+  }
 
   store.dispatch(discountsActions.fillDiscounts(discounts));
   const initialReduxState = store.getState();

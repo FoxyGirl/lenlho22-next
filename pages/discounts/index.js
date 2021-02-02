@@ -1,9 +1,7 @@
 import { initializeStore } from "@init/store";
 import { initilDispatcher } from "@init/initilDispatcher";
-import { setUserInState } from "@init/utils";
 import { discountsActions } from "@bus/discounts/actions";
 
-import { getUser } from "@helpers/userUtils";
 import { getDataFromFile } from "@helpers/dataUtils";
 
 import Menu from "@components/Menu";
@@ -11,9 +9,7 @@ import Discounts from "@components/Discounts";
 import BackLink from "@components/BackLink";
 
 export const getServerSideProps = async (context) => {
-  const user = await getUser(context);
   const store = await initilDispatcher(context, initializeStore());
-  setUserInState(store, user);
 
   const discounts = await getDataFromFile("discounts.json")();
 

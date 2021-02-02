@@ -1,9 +1,7 @@
 import { initializeStore } from "@init/store";
 import { initilDispatcher } from "@init/initilDispatcher";
-import { setUserInState } from "@init/utils";
 import { carsActions } from "@bus/cars/actions";
 
-import { getUser } from "@helpers/userUtils";
 import { getDataFromFile } from "@helpers/dataUtils";
 
 import Menu from "@components/Menu";
@@ -11,9 +9,7 @@ import Cars from "@components/Cars";
 import BackLink from "@components/BackLink";
 
 export const getServerSideProps = async (context) => {
-  const user = await getUser(context);
   const store = await initilDispatcher(context, initializeStore());
-  setUserInState(store, user);
 
   const cars = await getDataFromFile("cars.json")();
 

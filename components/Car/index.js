@@ -10,12 +10,6 @@ const Car = () => {
   const { cars } = useSelector((state) => state);
   const carItem = cars.find(({ id }) => id === car);
 
-  useEffect(() => {
-    if (!carItem) {
-      router.push("/404");
-    }
-  }, []);
-
   return <section>{carItem ? <InfoItem item={carItem} /> : null}</section>;
 };
 
