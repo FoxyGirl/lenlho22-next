@@ -20,15 +20,15 @@ const menu = [
 ];
 
 const Menu = () => {
+  const menuItemsJSX = menu.map(({ id, href, name }) => (
+    <li key={id}>
+      <ActiveLink href={href}>{name}</ActiveLink>
+    </li>
+  ));
+
   return (
     <div className={styles.container}>
-      <ul className={styles.wrap}>
-        {menu.map(({ id, href, name }) => (
-          <li key={id}>
-            <ActiveLink href={href}>{name}</ActiveLink>
-          </li>
-        ))}
-      </ul>
+      <ul className={styles.wrap}>{menuItemsJSX}</ul>
     </div>
   );
 };

@@ -1,24 +1,26 @@
+import Link from "next/link";
 import { useSelector } from "react-redux";
 
 import { initializeStore } from "@init/store";
 import { initilDispatcher } from "@init/initilDispatcher";
-import { setUserInState } from "@init/utils";
+import { newsActions } from "@bus/news/actions";
+import { discountsActions } from "@bus/discounts/actions";
+import { carsActions } from "@bus/cars/actions";
 
-import { USER_STATUS } from "@helpers/constants";
-import { getUser } from "@helpers/userUtils";
+import { PAGE_STYLES } from "@helpers/constants";
 import { getDataFromFile } from "@helpers/dataUtils";
+import {
+  useSynchronizeNews,
+  useSynchronizeDiscounts,
+  useSynchronizeCars,
+} from "@hooks/synchronizeHooks";
 
 import Menu from "@components/Menu";
-import News from "@components/News";
-import Discounts from "@components/Discounts";
-import Cars from "@components/Cars";
+
+import styles from "@styles/Dashboard.module.css";
 
 export const getServerSideProps = async (context) => {
-  const user = await getUser(context);
   const store = await initilDispatcher(context, initializeStore());
-  setUserInState(store, user);
-
-  const initialReduxState = store.getState();
 
   const getNews = getDataFromFile("news.json");
   const getDiscounts = getDataFromFile("discounts.json");
@@ -28,32 +30,81 @@ export const getServerSideProps = async (context) => {
   const discounts = await getDiscounts();
   const cars = await getCars();
 
+  store.dispatch(newsActions.fillNews(news));
+  store.dispatch(discountsActions.fillDiscounts(discounts));
+  store.dispatch(carsActions.fillCars(cars));
+
+  const initialReduxState = store.getState();
+
   return {
     props: {
-      news,
-      discounts,
-      cars,
       initialReduxState,
     },
   };
 };
 
-const Dashboard = ({ news, discounts, cars }) => {
-  const { userType } = useSelector((state) => state.user);
+const dashboardMenu = [
+  {
+    id: "news",
+    href: "/news",
+    name: "News",
+  },
+  {
+    id: "discounts",
+    href: "/discounts",
+    name: "Discounts",
+  },
+  {
+    id: "cars",
+    href: "/cars",
+    name: "Cars",
+  },
+];
+
+const DashboardPage = ({ initialReduxState }) => {
+  useSynchronizeNews(initialReduxState);
+  useSynchronizeDiscounts(initialReduxState);
+  useSynchronizeCars(initialReduxState);
+
+  const { news } = useSelector((state) => state);
+  const { discounts } = useSelector((state) => state);
+  const { cars } = useSelector((state) => state);
+
+  const mapSubmenu = {
+    news,
+    discounts,
+    cars,
+  };
+
+  const renderSubmenuJSX = (menuId) =>
+    mapSubmenu[menuId].length > 0 ? (
+      <ul>
+        {mapSubmenu[menuId].map(({ id }) => (
+          <li key={id}>
+            <Link href={`/${menuId}/${encodeURIComponent(id)}`}>
+              <a>{`${menuId} - ${id}`}</a>
+            </Link>
+          </li>
+        ))}
+      </ul>
+    ) : null;
+
+  const asideMenuItemsJSX = dashboardMenu.map(({ id: menuId, href, name }) => (
+    <li key={menuId}>
+      <Link href={href}>
+        <a>{name}</a>
+      </Link>
+      {renderSubmenuJSX(menuId)}
+    </li>
+  ));
 
   return (
-    <div style={{ maxWidth: 600, margin: "0 auto", padding: 20 }}>
+    <div style={PAGE_STYLES}>
       <Menu />
-      {news.length > 0 && <News news={news} />}
-      {discounts.length > 0 &&
-        (userType === USER_STATUS.FRIEND ||
-          userType === USER_STATUS.FAMILY) && (
-          <Discounts discounts={discounts} />
-        )}
-      {cars.length > 0 && userType === USER_STATUS.FAMILY && (
-        <Cars cars={cars} />
-      )}
+      <div className={styles.container}>
+        <ul className={styles.wrap}>{asideMenuItemsJSX}</ul>
+      </div>
     </div>
   );
 };
-export default Dashboard;
+export default DashboardPage;

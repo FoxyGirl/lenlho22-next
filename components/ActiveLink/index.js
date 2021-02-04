@@ -6,7 +6,6 @@ const ActiveLink = ({ children, href }) => {
 
   const style = {
     color: isActive ? "grey" : "black",
-    cursor: isActive ? "none" : "pointer",
     textDecoration: isActive ? "none" : "",
   };
 
