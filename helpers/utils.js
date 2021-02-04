@@ -1,4 +1,4 @@
-import { USER_STATUS } from "./constants";
+import { USER_STATUS } from "@helpers/constants";
 
 export const getUserStatus = (counts) => {
   if (counts < 3) {

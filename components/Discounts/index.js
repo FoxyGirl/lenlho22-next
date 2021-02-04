@@ -1,18 +1,19 @@
-const Discounts = ({ discounts }) => {
+import { useSelector } from "react-redux";
+import InfoItem from "@components/InfoItem";
+
+const Discounts = () => {
+  const { discounts } = useSelector((state) => state);
+
+  const discountsItemsJSX = discounts.map((item) => (
+    <li key={item.id}>
+      <InfoItem item={item} />
+    </li>
+  ));
+
   return (
     <section>
       <h2>Discounts</h2>
-
-      <ul>
-        {discounts.map(({ id, content, dateOfReceiving }) => (
-          <li key={id}>
-            <p>{content}</p>
-            <div style={{ color: "blue", textAlign: "right" }}>
-              {dateOfReceiving}
-            </div>
-          </li>
-        ))}
-      </ul>
+      <ul>{discountsItemsJSX}</ul>
     </section>
   );
 };
