@@ -3,12 +3,12 @@ import * as R from "ramda";
 import { initializeStore } from "@init/store";
 import { initialDispatcher } from "@init/initialDispatcher";
 import { carsActions } from "@bus/cars/actions";
-import { selectCars } from "@bus/selectors";
+import { selectCars, selectUserType } from "@bus/selectors";
 
 import { getCars } from "@helpers/dataUtils";
 import { PAGE_STYLES } from "@helpers/constants";
 import { serverDispatch } from "@helpers/serverDispatch";
-import { useStatusRedirect } from "@hooks/statusRedirectHooks";
+import { isAllowedRoute } from "@hooks/statusRedirectHooks";
 import { useResetType } from "@hooks/useResetType";
 
 import Menu from "@components/Menu";
@@ -39,10 +39,21 @@ export const getServerSideProps = async (context) => {
   );
 
   // Redirect
-
+  const userType = selectUserType(initialReduxState);
   const {
+    resolvedUrl,
     query: { car },
   } = context;
+
+  const pathname = resolvedUrl.split("/")[1];
+
+  if (!isAllowedRoute(`/${pathname}`, userType)) {
+    return {
+      redirect: {
+        destination: "/",
+      },
+    };
+  }
 
   const curentItem = cars.find(({ id }) => id === car);
 
@@ -63,7 +74,6 @@ export const getServerSideProps = async (context) => {
 
 const CarPage = () => {
   useResetType();
-  useStatusRedirect();
 
   return (
     <div style={PAGE_STYLES}>
