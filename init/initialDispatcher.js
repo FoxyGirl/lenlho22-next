@@ -1,12 +1,37 @@
-import { setUser, getUser } from "@helpers/userUtils";
-import { setUserInState } from "@init/utils";
+import { setUser, setMagicType } from "@helpers/userUtils";
+
+import { userActions } from "@bus/user/actions";
+import {
+  selectUserId,
+  selectUserType,
+  selectUserVisitCounts,
+} from "@bus/selectors";
+
+import { serverDispatch } from "@helpers/serverDispatch";
 
 export const initialDispatcher = async (context, store) => {
   // set user that is required for all pages
   const user = await setUser(context);
-  // // const user = await getUser(context);
+  const userType = await setMagicType(context, user);
 
-  setUserInState(store, user);
+  await serverDispatch(store, (dispatch) => {
+    dispatch(userActions.fillUser(user.userId));
+    dispatch(userActions.setVisitCounts(user.visitCounts));
+    dispatch(userActions.setUserType(userType));
+  });
 
-  return store;
+  const state = store.getState();
+
+  const stateUpdates = {
+    user: {
+      userId: selectUserId(state),
+      userType: selectUserType(state),
+      visitCounts: selectUserVisitCounts(state),
+    },
+  };
+
+  return {
+    store,
+    stateUpdates,
+  };
 };

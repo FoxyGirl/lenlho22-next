@@ -1,20 +1,44 @@
+import * as R from "ramda";
+
 import { initializeStore } from "@init/store";
 import { initialDispatcher } from "@init/initialDispatcher";
 import { discountsActions } from "@bus/discounts/actions";
+import { selectDiscounts } from "@bus/selectors";
 
-import { getDataFromFile } from "@helpers/dataUtils";
+import { getDiscounts } from "@helpers/dataUtils";
 import { PAGE_STYLES } from "@helpers/constants";
+import { serverDispatch } from "@helpers/serverDispatch";
 import { useStatusRedirect } from "@hooks/statusRedirectHooks";
-// import { useSetUserStatus } from "@hooks/synchronizeHooks";
+import { useResetType } from "@hooks/useResetType";
 
 import Menu from "@components/Menu";
 import Discount from "@components/Discount";
 import BackLink from "@components/BackLink";
 
 export const getServerSideProps = async (context) => {
-  const store = await initialDispatcher(context, initializeStore());
-  const discounts = await getDataFromFile("discounts.json")();
+  const { store, stateUpdates } = await initialDispatcher(
+    context,
+    initializeStore()
+  );
 
+  const discounts = await getDiscounts();
+
+  await serverDispatch(store, (dispatch) => {
+    dispatch(discountsActions.fillDiscounts(discounts));
+  });
+
+  const updatedState = store.getState();
+
+  const currentPageReduxState = {
+    discounts: selectDiscounts(updatedState),
+  };
+
+  const initialReduxState = R.mergeDeepRight(
+    stateUpdates,
+    currentPageReduxState
+  );
+
+  // Redirect
   const {
     query: { discount },
   } = context;
@@ -29,9 +53,6 @@ export const getServerSideProps = async (context) => {
     };
   }
 
-  store.dispatch(discountsActions.fillDiscounts(discounts));
-  const initialReduxState = store.getState();
-
   return {
     props: {
       initialReduxState,
@@ -40,7 +61,7 @@ export const getServerSideProps = async (context) => {
 };
 
 const DiscountPage = () => {
-  // useSetUserStatus();
+  useResetType();
   useStatusRedirect();
 
   return (

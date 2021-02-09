@@ -1,29 +1,42 @@
+import * as R from "ramda";
+
 import { initializeStore } from "@init/store";
 import { initialDispatcher } from "@init/initialDispatcher";
 import { carsActions } from "@bus/cars/actions";
-
-import { getDataFromFile } from "@helpers/dataUtils";
-import { PAGE_STYLES } from "@helpers/constants";
-import { useStatusRedirect } from "@hooks/statusRedirectHooks";
 import { selectCars } from "@bus/selectors";
-// import { useSetUserStatus } from "@hooks/synchronizeHooks";
+
+import { getCars } from "@helpers/dataUtils";
+import { PAGE_STYLES } from "@helpers/constants";
+import { serverDispatch } from "@helpers/serverDispatch";
+import { useStatusRedirect } from "@hooks/statusRedirectHooks";
+import { useResetType } from "@hooks/useResetType";
 
 import Menu from "@components/Menu";
 import Cars from "@components/Cars";
 import BackLink from "@components/BackLink";
 
 export const getServerSideProps = async (context) => {
-  const store = await initialDispatcher(context, initializeStore());
+  const { store, stateUpdates } = await initialDispatcher(
+    context,
+    initializeStore()
+  );
 
-  const cars = await getDataFromFile("cars.json")();
+  const cars = await getCars();
 
-  store.dispatch(carsActions.fillCars(cars));
-  // const initialReduxState = store.getState();
+  await serverDispatch(store, (dispatch) => {
+    dispatch(carsActions.fillCars(cars));
+  });
+
   const updatedState = store.getState();
 
-  const initialReduxState = {
+  const currentPageReduxState = {
     cars: selectCars(updatedState),
   };
+
+  const initialReduxState = R.mergeDeepRight(
+    stateUpdates,
+    currentPageReduxState
+  );
 
   return {
     props: {
@@ -33,7 +46,7 @@ export const getServerSideProps = async (context) => {
 };
 
 const CarsPage = () => {
-  // useSetUserStatus();
+  useResetType();
   useStatusRedirect();
 
   return (

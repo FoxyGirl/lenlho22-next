@@ -1,3 +1,4 @@
+import * as R from "ramda";
 import Link from "next/link";
 import { useSelector } from "react-redux";
 
@@ -6,52 +7,44 @@ import { initialDispatcher } from "@init/initialDispatcher";
 import { newsActions } from "@bus/news/actions";
 import { discountsActions } from "@bus/discounts/actions";
 import { carsActions } from "@bus/cars/actions";
-import {
-  selectNews,
-  selectDiscounts,
-  selectCars,
-  selectUser,
-} from "@bus/selectors";
+import { selectNews, selectDiscounts, selectCars } from "@bus/selectors";
 
 import { PAGE_STYLES } from "@helpers/constants";
-import { getDataFromFile } from "@helpers/dataUtils";
-// import {
-//   useSynchronizeNews,
-//   useSynchronizeDiscounts,
-//   useSynchronizeCars,
-// } from "@hooks/synchronizeHooks";
-// import { useSetUserStatus } from "@hooks/synchronizeHooks";
+import { getNews, getDiscounts, getCars } from "@helpers/dataUtils";
+import { serverDispatch } from "@helpers/serverDispatch";
+import { useResetType } from "@hooks/useResetType";
 
 import Menu from "@components/Menu";
-
 import styles from "@styles/Dashboard.module.css";
 
 export const getServerSideProps = async (context) => {
-  const store = await initialDispatcher(context, initializeStore());
-
-  const getNews = getDataFromFile("news.json");
-  const getDiscounts = getDataFromFile("discounts.json");
-  const getCars = getDataFromFile("cars.json");
+  const { store, stateUpdates } = await initialDispatcher(
+    context,
+    initializeStore()
+  );
 
   const news = await getNews();
   const discounts = await getDiscounts();
   const cars = await getCars();
 
-  store.dispatch(newsActions.fillNews(news));
-  store.dispatch(discountsActions.fillDiscounts(discounts));
-  store.dispatch(carsActions.fillCars(cars));
+  await serverDispatch(store, (dispatch) => {
+    dispatch(newsActions.fillNews(news));
+    dispatch(discountsActions.fillDiscounts(discounts));
+    dispatch(carsActions.fillCars(cars));
+  });
 
   const updatedState = store.getState();
 
-  // console.log("getServerSideProps updatedState", updatedState);
-
-  // const initialReduxState = store.getState();
-  const initialReduxState = {
+  const currentPageReduxState = {
     news: selectNews(updatedState),
     discounts: selectDiscounts(updatedState),
     cars: selectCars(updatedState),
-    // user: selectUser(updatedState),
   };
+
+  const initialReduxState = R.mergeDeepRight(
+    stateUpdates,
+    currentPageReduxState
+  );
 
   return {
     props: {
@@ -78,18 +71,12 @@ const dashboardMenu = [
   },
 ];
 
-const DashboardPage = ({ initialReduxState }) => {
-  // useSynchronizeNews(initialReduxState);
-  // useSynchronizeDiscounts(initialReduxState);
-  // useSynchronizeCars(initialReduxState);
-  // useSetUserStatus();
+const DashboardPage = () => {
+  useResetType();
 
   const news = useSelector(selectNews);
   const discounts = useSelector(selectDiscounts);
   const cars = useSelector(selectCars);
-  const user = useSelector(selectUser);
-
-  console.log("DashboardPage user = ", user);
 
   const mapSubmenu = {
     news,
@@ -128,4 +115,5 @@ const DashboardPage = ({ initialReduxState }) => {
     </div>
   );
 };
+
 export default DashboardPage;

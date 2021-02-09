@@ -1,21 +1,43 @@
+import * as R from "ramda";
+
 import { initializeStore } from "@init/store";
 import { initialDispatcher } from "@init/initialDispatcher";
 import { newsActions } from "@bus/news/actions";
+import { selectNews } from "@bus/selectors";
 
-import { getDataFromFile } from "@helpers/dataUtils";
-// import { useSetUserStatus } from "@hooks/synchronizeHooks";
+import { getNews } from "@helpers/dataUtils";
 import { PAGE_STYLES } from "@helpers/constants";
+import { serverDispatch } from "@helpers/serverDispatch";
+import { useResetType } from "@hooks/useResetType";
 
 import Menu from "@components/Menu";
 import Article from "@components/Article";
 import BackLink from "@components/BackLink";
 
 export const getServerSideProps = async (context) => {
-  const store = await initialDispatcher(context, initializeStore());
+  const { store, stateUpdates } = await initialDispatcher(
+    context,
+    initializeStore()
+  );
 
-  const getNews = getDataFromFile("news.json");
   const news = await getNews();
 
+  await serverDispatch(store, (dispatch) => {
+    dispatch(newsActions.fillNews(news));
+  });
+
+  const updatedState = store.getState();
+
+  const currentPageReduxState = {
+    news: selectNews(updatedState),
+  };
+
+  const initialReduxState = R.mergeDeepRight(
+    stateUpdates,
+    currentPageReduxState
+  );
+
+  // Redirect
   const {
     query: { article },
   } = context;
@@ -30,9 +52,6 @@ export const getServerSideProps = async (context) => {
     };
   }
 
-  store.dispatch(newsActions.fillNews(news));
-  const initialReduxState = store.getState();
-
   return {
     props: {
       initialReduxState,
@@ -41,7 +60,7 @@ export const getServerSideProps = async (context) => {
 };
 
 const ArticlePage = () => {
-  // useSetUserStatus();
+  useResetType();
 
   return (
     <div style={PAGE_STYLES}>
