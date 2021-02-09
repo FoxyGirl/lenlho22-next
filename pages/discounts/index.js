@@ -3,12 +3,12 @@ import * as R from "ramda";
 import { initializeStore } from "@init/store";
 import { initialDispatcher } from "@init/initialDispatcher";
 import { discountsActions } from "@bus/discounts/actions";
-import { selectDiscounts } from "@bus/selectors";
+import { selectDiscounts, selectUserType } from "@bus/selectors";
 
 import { getDiscounts } from "@helpers/dataUtils";
 import { PAGE_STYLES } from "@helpers/constants";
 import { serverDispatch } from "@helpers/serverDispatch";
-import { useStatusRedirect } from "@hooks/statusRedirectHooks";
+import { isAllowedRoute } from "@hooks/statusRedirectHooks";
 import { useResetType } from "@hooks/useResetType";
 
 import Menu from "@components/Menu";
@@ -38,6 +38,20 @@ export const getServerSideProps = async (context) => {
     currentPageReduxState
   );
 
+  // Redirect
+  const userType = selectUserType(initialReduxState);
+  const { resolvedUrl } = context;
+
+  const pathname = resolvedUrl.split("/")[1];
+
+  if (!isAllowedRoute(`/${pathname}`, userType)) {
+    return {
+      redirect: {
+        destination: "/",
+      },
+    };
+  }
+
   return {
     props: {
       initialReduxState,
@@ -47,7 +61,6 @@ export const getServerSideProps = async (context) => {
 
 const DiscountsPage = () => {
   useResetType();
-  useStatusRedirect();
 
   return (
     <div style={PAGE_STYLES}>

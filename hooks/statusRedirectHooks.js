@@ -29,3 +29,6 @@ export const useStatusRedirect = () => {
     router.push("/");
   }
 };
+
+export const isAllowedRoute = (pathname, userType) =>
+  allowedRoutes[userType].includes(pathname);
