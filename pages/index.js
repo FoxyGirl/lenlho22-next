@@ -2,25 +2,23 @@ import { initializeStore } from "@init/store";
 import { initialDispatcher } from "@init/initialDispatcher";
 
 import { PAGE_STYLES } from "@helpers/constants";
-// import { useSetUserStatus } from "@hooks/synchronizeHooks";
+import { useResetType } from "@hooks/useResetType";
 
 import Message from "@components/Message";
 import Menu from "@components/Menu";
 
 export const getServerSideProps = async (context) => {
-  const store = await initialDispatcher(context, initializeStore());
-
-  const initialReduxState = store.getState();
+  const { stateUpdates } = await initialDispatcher(context, initializeStore());
 
   return {
     props: {
-      initialReduxState,
+      initialReduxState: stateUpdates,
     },
   };
 };
 
 const HomePage = () => {
-  // useSetUserStatus();
+  useResetType();
 
   return (
     <div style={PAGE_STYLES}>

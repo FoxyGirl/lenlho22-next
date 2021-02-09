@@ -1,41 +1,24 @@
 import { initializeStore } from "@init/store";
 import { initialDispatcher } from "@init/initialDispatcher";
-// import { useSynchronizeVisitCounts } from "@hooks/synchronizeHooks";
-// import { useSetUserStatus } from "@hooks/synchronizeHooks";
 
-import { selectUser, selectUserVisitCounts } from "@bus/selectors";
-
+import { useResetType } from "@hooks/useResetType";
 import { PAGE_STYLES } from "@helpers/constants";
 
 import Menu from "@components/Menu";
 import User from "@components/User";
 
 export const getServerSideProps = async (context) => {
-  const store = await initialDispatcher(context, initializeStore());
-
-  // const initialReduxState = store.getState();
-  const updatedState = store.getState();
-  const views = selectUserVisitCounts(updatedState);
-  console.log("!!! views", views);
-
-  const initialReduxState = {
-    user: selectUser(updatedState),
-    // user: {
-    //   visitCounts: selectUserVisitCounts(updatedState),
-    //   // userId: selectUserId(updatedState),
-    // },
-  };
+  const { stateUpdates } = await initialDispatcher(context, initializeStore());
 
   return {
     props: {
-      initialReduxState,
+      initialReduxState: stateUpdates,
     },
   };
 };
 
-const UserPage = ({ initialReduxState }) => {
-  // useSynchronizeVisitCounts(initialReduxState);
-  // useSetUserStatus();
+const UserPage = () => {
+  useResetType();
 
   return (
     <div style={PAGE_STYLES}>
