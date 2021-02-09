@@ -2,6 +2,7 @@ import nookies from "nookies";
 import writeFile from "./writeFile";
 import readFile from "./readFile";
 import getRandomKey from "./getRandomKey";
+// import { getUserStatus } from "@helpers/utils";
 
 const userFile = "users.json";
 
@@ -37,6 +38,11 @@ export const setUser = async (context) => {
 
     writeFile(userFile, data);
   }
+
+  // nookies.set(context, "userStatus", getUserStatus(user.visitCounts), {
+  //   // maxAge: 30 * 24 * 60 * 60,
+  //   path: "/",
+  // });
 
   return user;
 };

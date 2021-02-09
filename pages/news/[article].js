@@ -1,8 +1,9 @@
 import { initializeStore } from "@init/store";
-import { initilDispatcher } from "@init/initilDispatcher";
+import { initialDispatcher } from "@init/initialDispatcher";
 import { newsActions } from "@bus/news/actions";
 
 import { getDataFromFile } from "@helpers/dataUtils";
+// import { useSetUserStatus } from "@hooks/synchronizeHooks";
 import { PAGE_STYLES } from "@helpers/constants";
 
 import Menu from "@components/Menu";
@@ -10,7 +11,7 @@ import Article from "@components/Article";
 import BackLink from "@components/BackLink";
 
 export const getServerSideProps = async (context) => {
-  const store = await initilDispatcher(context, initializeStore());
+  const store = await initialDispatcher(context, initializeStore());
 
   const getNews = getDataFromFile("news.json");
   const news = await getNews();
@@ -40,6 +41,8 @@ export const getServerSideProps = async (context) => {
 };
 
 const ArticlePage = () => {
+  // useSetUserStatus();
+
   return (
     <div style={PAGE_STYLES}>
       <Menu />
