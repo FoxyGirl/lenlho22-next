@@ -5,3 +5,4 @@ export const selectUser = (state) => state.user;
 export const selectUserVisitCounts = (state) => state.user.visitCounts;
 export const selectUserId = (state) => state.user.userId;
 export const selectUserType = (state) => state.user.userType;
+export const selectAsteroids = (state) => state.asteroids;
