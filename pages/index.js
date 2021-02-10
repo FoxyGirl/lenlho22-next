@@ -2,6 +2,8 @@ import * as R from "ramda";
 
 import { initializeStore } from "@init/store";
 import { initialDispatcher } from "@init/initialDispatcher";
+import { initApollo } from "@init/initApollo";
+import queryPokemons from "@bus/pokemons/hooks/usePokemons/gql/queryPokemons.graphql";
 
 import { asteroidsActions } from "@bus/asteroids/actions";
 import { selectAsteroids } from "@bus/selectors";
@@ -14,12 +16,19 @@ import { disableSaga } from "@helpers/disableSaga";
 import Asteroids from "@components/Asteroids";
 import Message from "@components/Message";
 import Menu from "@components/Menu";
+import Pokemons from "@components/Pokemons";
 
 export const getServerSideProps = async (context) => {
   const { store, stateUpdates } = await initialDispatcher(
     context,
     initializeStore()
   );
+
+  const initialApolloState = await initApollo(context, async (execute) => {
+    await execute({
+      query: queryPokemons,
+    });
+  });
 
   await serverDispatch(store, (dispatch) => {
     dispatch(asteroidsActions.loadAsteroidsAsync());
@@ -41,6 +50,7 @@ export const getServerSideProps = async (context) => {
   return {
     props: {
       initialReduxState,
+      initialApolloState,
     },
   };
 };
@@ -53,6 +63,8 @@ const HomePage = () => {
       <Menu />
       <Message />
       <Asteroids />
+      <hr />
+      <Pokemons />
     </div>
   );
 };
