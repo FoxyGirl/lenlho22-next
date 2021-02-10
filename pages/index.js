@@ -3,7 +3,7 @@ import * as R from "ramda";
 import { initializeStore } from "@init/store";
 import { initialDispatcher } from "@init/initialDispatcher";
 import { initApollo } from "@init/initApollo";
-import queryPokemons from "@bus/pokemons/hooks/usePokemons/gql/queryPokemons.graphql";
+import queryPokemons from "../bus/pokemons/hooks/usePokemons/gql/queryPokemons.graphql";
 
 import { asteroidsActions } from "@bus/asteroids/actions";
 import { selectAsteroids } from "@bus/selectors";
