@@ -4,6 +4,8 @@ import { userActions } from "@bus/user/actions";
 import { newsActions } from "@bus/news/actions";
 import { discountsActions } from "@bus/discounts/actions";
 import { carsActions } from "@bus/cars/actions";
+// import { selectUser } from "@bus/selectors";
+// import { getUserStatus } from "@helpers/utils";
 
 export const useSynchronizeNews = (initialReduxState) => {
   const dispatch = useDispatch();
@@ -45,3 +47,16 @@ export const useSynchronizeVisitCounts = (initialReduxState) => {
     dispatch(userActions.setVisitCounts(initialReduxState.user.visitCounts));
   }
 };
+
+// export const useSetUserStatus = () => {
+//   const user = useSelector(selectUser);
+//   const { userType } = user;
+
+//   console.log("user", user);
+
+//   if (!!userType) return;
+
+//   const dispatch = useDispatch();
+//   const userStatus = getUserStatus(user.visitCounts);
+//   dispatch(userActions.setUserType(userStatus));
+// };
