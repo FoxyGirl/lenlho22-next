@@ -1,22 +1,59 @@
-import { initializeStore } from "@init/store";
-import { initilDispatcher } from "@init/initilDispatcher";
-import { carsActions } from "@bus/cars/actions";
+import * as R from "ramda";
 
-import { getDataFromFile } from "@helpers/dataUtils";
+import { initializeStore } from "@init/store";
+import { initialDispatcher } from "@init/initialDispatcher";
+import { carsActions } from "@bus/cars/actions";
+import { selectCars, selectUserType } from "@bus/selectors";
+
+import { getCars } from "@helpers/dataUtils";
 import { PAGE_STYLES } from "@helpers/constants";
-import { useStatusRedirect } from "@hooks/statusRedirectHooks";
+import { serverDispatch } from "@helpers/serverDispatch";
+import { isAllowedRoute } from "@hooks/statusRedirectHooks";
+import { useResetType } from "@hooks/useResetType";
 
 import Menu from "@components/Menu";
 import Car from "@components/Car";
 import BackLink from "@components/BackLink";
 
 export const getServerSideProps = async (context) => {
-  const store = await initilDispatcher(context, initializeStore());
-  const cars = await getDataFromFile("cars.json")();
+  const { store, stateUpdates } = await initialDispatcher(
+    context,
+    initializeStore()
+  );
 
+  const cars = await getCars();
+
+  await serverDispatch(store, (dispatch) => {
+    dispatch(carsActions.fillCars(cars));
+  });
+
+  const updatedState = store.getState();
+
+  const currentPageReduxState = {
+    cars: selectCars(updatedState),
+  };
+
+  const initialReduxState = R.mergeDeepRight(
+    stateUpdates,
+    currentPageReduxState
+  );
+
+  // Redirect
+  const userType = selectUserType(initialReduxState);
   const {
+    resolvedUrl,
     query: { car },
   } = context;
+
+  const pathname = resolvedUrl.split("/")[1];
+
+  if (!isAllowedRoute(`/${pathname}`, userType)) {
+    return {
+      redirect: {
+        destination: "/",
+      },
+    };
+  }
 
   const curentItem = cars.find(({ id }) => id === car);
 
@@ -28,9 +65,6 @@ export const getServerSideProps = async (context) => {
     };
   }
 
-  store.dispatch(carsActions.fillCars(cars));
-  const initialReduxState = store.getState();
-
   return {
     props: {
       initialReduxState,
@@ -39,7 +73,7 @@ export const getServerSideProps = async (context) => {
 };
 
 const CarPage = () => {
-  useStatusRedirect();
+  useResetType();
 
   return (
     <div style={PAGE_STYLES}>

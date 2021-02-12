@@ -1,26 +1,24 @@
 import { initializeStore } from "@init/store";
-import { initilDispatcher } from "@init/initilDispatcher";
-import { useSynchronizeVisitCounts } from "@hooks/synchronizeHooks";
+import { initialDispatcher } from "@init/initialDispatcher";
 
+import { useResetType } from "@hooks/useResetType";
 import { PAGE_STYLES } from "@helpers/constants";
 
 import Menu from "@components/Menu";
 import User from "@components/User";
 
 export const getServerSideProps = async (context) => {
-  const store = await initilDispatcher(context, initializeStore());
-
-  const initialReduxState = store.getState();
+  const { stateUpdates } = await initialDispatcher(context, initializeStore());
 
   return {
     props: {
-      initialReduxState,
+      initialReduxState: stateUpdates,
     },
   };
 };
 
-const UserPage = ({ initialReduxState }) => {
-  useSynchronizeVisitCounts(initialReduxState);
+const UserPage = () => {
+  useResetType();
 
   return (
     <div style={PAGE_STYLES}>

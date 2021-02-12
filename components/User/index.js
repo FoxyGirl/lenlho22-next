@@ -1,4 +1,5 @@
 import { useSelector, useDispatch } from "react-redux";
+import { setCookie } from "nookies";
 
 import { userActions } from "@bus/user/actions";
 import { increaseUserStatus } from "@helpers/utils";
@@ -12,6 +13,12 @@ const User = () => {
   const handleOnCLick = () => {
     const newUserType = increaseUserStatus(userType);
     dispatch(userActions.setUserType(newUserType));
+
+    // Set
+    setCookie(null, "magicType", newUserType, {
+      maxAge: 30 * 24 * 60 * 60,
+      path: "/",
+    });
   };
 
   return (

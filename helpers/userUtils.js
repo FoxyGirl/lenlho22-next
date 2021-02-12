@@ -2,6 +2,7 @@ import nookies from "nookies";
 import writeFile from "./writeFile";
 import readFile from "./readFile";
 import getRandomKey from "./getRandomKey";
+import { getUserStatus } from "@helpers/utils";
 
 const userFile = "users.json";
 
@@ -65,4 +66,22 @@ export const getUser = async (context) => {
   }
 
   return user;
+};
+
+export const setMagicType = async (context, user) => {
+  const cookies = nookies.get(context);
+  const { magicType } = cookies;
+
+  if (!magicType) {
+    const newMagicType = getUserStatus(user.visitCounts);
+
+    nookies.set(context, "magicType", newMagicType, {
+      maxAge: 30 * 24 * 60 * 60,
+      path: "/",
+    });
+
+    return newMagicType;
+  } else {
+    return magicType;
+  }
 };

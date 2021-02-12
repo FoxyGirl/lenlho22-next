@@ -25,3 +25,7 @@ export const getDataFromFile = (fileName) => async () => {
 
   return data;
 };
+
+export const getCars = getDataFromFile("cars.json");
+export const getDiscounts = getDataFromFile("discounts.json");
+export const getNews = getDataFromFile("news.json");
