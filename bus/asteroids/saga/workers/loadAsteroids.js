@@ -17,7 +17,6 @@ export function* loadAsteroids() {
       throw new Error(`We can't receive starships 😢`);
     }
 
-    yield delay(2000);
     yield put(asteroidsActions.fillAsteroids(results));
   } catch (error) {
     console.log("loadAsteroidsAsync", error);

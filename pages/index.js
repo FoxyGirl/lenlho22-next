@@ -13,10 +13,10 @@ import { useResetType } from "@hooks/useResetType";
 import { serverDispatch } from "@helpers/serverDispatch";
 import { disableSaga } from "@helpers/disableSaga";
 
-import Asteroids from "@components/Asteroids";
+import Asteroids from "@bus/asteroids/Asteroids";
 import Message from "@components/Message";
 import Menu from "@components/Menu";
-import Pokemons from "@components/Pokemons";
+import Pokemons from "@bus/pokemons/Pokemons";
 
 export const getServerSideProps = async (context) => {
   const { store, stateUpdates } = await initialDispatcher(
