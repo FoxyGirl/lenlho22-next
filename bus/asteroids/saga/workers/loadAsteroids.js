@@ -8,7 +8,7 @@ import { developmentLogger, productionLogger } from "@helpers/logger";
 
 export function* loadAsteroids() {
   const url =
-    "http://www.asterank.com/api/asterank5?query=%7B%22e%22:%7B%22$lt%22:0.1%7D,%22i%22:%7B%22$lt%22:4%7D,%22a%22:%7B%22$lt%22:1.5%7D%7D&limit=10";
+    "http://www.asterank.com/api/asterank?query=%7B%22e%22:%7B%22$lt%22:0.1%7D,%22i%22:%7B%22$lt%22:4%7D,%22a%22:%7B%22$lt%22:1.5%7D%7D&limit=10";
 
   const { isDevelopment, isProduction } = verifyEnvironment();
 
