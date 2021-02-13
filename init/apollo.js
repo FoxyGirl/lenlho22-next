@@ -10,9 +10,14 @@ import { setContext } from "@apollo/client/link/context";
 import fetch from "isomorphic-unfetch";
 import apolloLogger from "apollo-link-logger";
 
+// Other
+import { verifyBrowser } from "@helpers/verifyBrowser";
+import { verifyEnvironment } from "@helpers/verifyEnvironment";
+
 let apolloClient;
 
-const isBrowser = typeof window !== "undefined";
+const isBrowser = verifyBrowser();
+const { isDevelopment } = verifyEnvironment();
 
 function createApolloClient(context) {
   const httpLink = createHttpLink({
@@ -33,7 +38,7 @@ function createApolloClient(context) {
   } else {
     const links = [httpLink];
 
-    if (isBrowser) {
+    if (isBrowser && isDevelopment) {
       links.unshift(apolloLogger);
     }
 
