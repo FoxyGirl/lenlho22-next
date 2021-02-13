@@ -12,6 +12,7 @@
     "@apollo/react-hooks": "^4.0.0",
     "apollo-link-logger": "^2.0.0",
     "graphql": "^15.5.0",
+    "inspectpack": "^4.6.1",
     "ismobilejs": "^1.1.1",
     "isomorphic-unfetch": "^3.1.0",
     "next": "10.0.5",
