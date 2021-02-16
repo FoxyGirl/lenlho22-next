@@ -1,6 +1,9 @@
 const { DuplicatesPlugin } = require("inspectpack/plugin");
 const path = require("path");
 const withPlugins = require("next-compose-plugins");
+const OptimizeCssAssetsPlugin = require("optimize-css-assets-webpack-plugin");
+const CleanCss = require("clean-css");
+
 const withTM = require("next-transpile-modules")([
   // These modules doesn't support IE11:
   "logform",
@@ -41,6 +44,27 @@ module.exports = withPlugins(
           new DuplicatesPlugin({
             verbose: true,
             emitErrors: true,
+          })
+        );
+
+        config.optimization.minimizer.push(
+          new OptimizeCssAssetsPlugin({
+            assetNameRegExp: /\.css$/g,
+            cssProcessor: CleanCss,
+            cssProcessorOptions: {
+              level: {
+                1: {
+                  all: true,
+                  normalizeUrls: false,
+                },
+                2: {
+                  restructureRules: true,
+                  removeUnusedAtRules: true,
+                  skipProperties: ["border-top", "border-bottom"],
+                },
+              },
+            },
+            canPrint: true,
           })
         );
       }
