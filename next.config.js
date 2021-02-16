@@ -9,39 +9,52 @@ const withTM = require("next-transpile-modules")([
   "is-stream",
 ]);
 
-module.exports = withPlugins([[withTM, {}]], {
-  webpack: (config, { isServer }) => {
-    const isProduction = process.env.NODE_ENV === "production";
-
-    const updatedAliases = {
-      ...config.resolve.alias,
-      "readable-stream": path.join(__dirname, "./node_modules/readable-stream"),
-      inherits: path.join(__dirname, "./node_modules/inherits"),
-      "safe-buffer": path.join(__dirname, "./node_modules/safe-buffer"),
-    };
-
-    config.resolve.alias = {
-      ...updatedAliases,
-    };
-
-    if (isProduction) {
-      config.plugins.push(
-        new DuplicatesPlugin({
-          verbose: true,
-          emitErrors: true,
-        })
-      );
-    }
-
-    if (!isServer) {
-      return {
-        ...config,
-        node: {
-          fs: "empty",
-        },
-      };
-    }
-
-    return config;
-  },
+const withBundleAnalyzer = require("@next/bundle-analyzer")({
+  enabled: process.env.ANALYZE === "true",
 });
+
+module.exports = withPlugins(
+  [
+    [withBundleAnalyzer, {}],
+    [withTM, {}],
+  ],
+  {
+    webpack: (config, { isServer }) => {
+      const isProduction = process.env.NODE_ENV === "production";
+
+      const updatedAliases = {
+        ...config.resolve.alias,
+        "readable-stream": path.join(
+          __dirname,
+          "./node_modules/readable-stream"
+        ),
+        inherits: path.join(__dirname, "./node_modules/inherits"),
+        "safe-buffer": path.join(__dirname, "./node_modules/safe-buffer"),
+      };
+
+      config.resolve.alias = {
+        ...updatedAliases,
+      };
+
+      if (isProduction) {
+        config.plugins.push(
+          new DuplicatesPlugin({
+            verbose: true,
+            emitErrors: true,
+          })
+        );
+      }
+
+      if (!isServer) {
+        return {
+          ...config,
+          node: {
+            fs: "empty",
+          },
+        };
+      }
+
+      return config;
+    },
+  }
+);
