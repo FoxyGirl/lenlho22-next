@@ -6,7 +6,7 @@ import { ApolloProvider } from "@apollo/react-hooks";
 import { useStore } from "@init/store";
 import { useApollo } from "@init/apollo";
 
-import "@styles/globals.css";
+import "@styles/globals.scss";
 
 function MyApp({ Component, pageProps }) {
   const store = useStore(pageProps.initialReduxState);

@@ -15,7 +15,7 @@ import { serverDispatch } from "@helpers/serverDispatch";
 import { useResetType } from "@hooks/useResetType";
 
 import Menu from "@components/Menu";
-import styles from "@styles/Dashboard.module.css";
+import styles from "@styles/Dashboard.module.scss";
 
 export const getServerSideProps = async (context) => {
   const { store, stateUpdates } = await initialDispatcher(
