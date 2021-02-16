@@ -11,6 +11,7 @@
   "dependencies": {
     "@apollo/client": "^3.3.8",
     "@apollo/react-hooks": "^4.0.0",
+    "@fullhuman/postcss-purgecss": "^4.0.0",
     "@next/bundle-analyzer": "^10.0.7",
     "apollo-link-logger": "^2.0.0",
     "clean-css": "^5.0.1",
