@@ -3,9 +3,11 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
+    "prebuild": "rimraf .next",
     "dev": "NODE_ENV=development next dev",
     "build": "next build",
     "start": "next start",
+    "start:prod": "yarn build && yarn start",
     "analyze": "ANALYZE=true next build"
   },
   "dependencies": {
@@ -33,6 +35,7 @@
     "redux-devtools-extension": "^2.13.8",
     "redux-logger": "^3.0.6",
     "redux-saga": "^1.1.3",
+    "rimraf": "^3.0.2",
     "sass": "^1.32.7",
     "winston": "^3.3.3"
   },
