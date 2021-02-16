@@ -4,7 +4,7 @@ import { setCookie } from "nookies";
 import { userActions } from "@bus/user/actions";
 import { increaseUserStatus } from "@helpers/utils";
 
-import styles from "@styles/User.module.css";
+import styles from "@styles/User.module.scss";
 
 const User = () => {
   const dispatch = useDispatch();
