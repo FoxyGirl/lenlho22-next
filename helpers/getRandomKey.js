@@ -14,4 +14,7 @@ const getRandomKey = () => {
   return `${keyRand1}-${keyRand2}-${keyRand3}`;
 };
 
-export default getRandomKey;
+const getShortRandomKey = () =>
+  [...Array(11)].map((i) => (~~(Math.random() * 36)).toString(36)).join("");
+
+export { getRandomKey, getShortRandomKey };

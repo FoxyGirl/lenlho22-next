@@ -1,17 +1,19 @@
 // Core
-import { put, call } from "redux-saga/effects";
+import { put, call, delay } from "redux-saga/effects";
 
 // Instruments
-import { asteroidsActions } from "@bus/asteroids/actions";
+import { catsActions } from "@bus/cats/actions";
 import { verifyEnvironment } from "@helpers/verifyEnvironment";
+import { verifyBrowser } from "@helpers/verifyBrowser";
+
 import { developmentLogger, productionLogger } from "@helpers/logger";
+import { handleRestPostRequest } from "@helpers/handleRequest";
 
-export function* loadAsteroids() {
-  const url =
-    "http://www.asterank.com/api/asterank?query=%7B%22e%22:%7B%22$lt%22:0.1%7D,%22i%22:%7B%22$lt%22:4%7D,%22a%22:%7B%22$lt%22:1.5%7D%7D&limit=10";
-
+export function* loadCats() {
   const { isDevelopment, isProduction } = verifyEnvironment();
+  const isBrowser = verifyBrowser();
 
+  const url = "https://cat-fact.herokuapp.com/facts";
   let status = null;
 
   try {
@@ -41,11 +43,12 @@ export function* loadAsteroids() {
       }
     }
 
-    yield put(asteroidsActions.fillAsteroids(results));
+    yield delay(2000);
+    yield put(catsActions.fillCats(results));
   } catch (error) {
     if (isDevelopment) {
       developmentLogger.warn({
-        message: `Error! \n Current status code is: ${status}`,
+        message: `Current status code is: ${status}`,
       });
     }
 
@@ -62,6 +65,10 @@ export function* loadAsteroids() {
       developmentLogger.info(
         `API GET request to ${url} was finished with status ${status}`
       );
+    }
+
+    if (isProduction && isBrowser) {
+      handleRestPostRequest({ url, status });
     }
   }
 }
