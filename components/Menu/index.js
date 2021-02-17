@@ -1,5 +1,5 @@
 import ActiveLink from "@components/ActiveLink";
-import styles from "@styles/Menu.module.scss";
+import styles from "./Menu.module.scss";
 
 const menu = [
   {
