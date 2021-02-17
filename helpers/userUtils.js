@@ -1,7 +1,7 @@
 import nookies from "nookies";
 import writeFile from "./writeFile";
 import readFile from "./readFile";
-import getRandomKey from "./getRandomKey";
+import { getRandomKey } from "./getRandomKey";
 import { getUserStatus } from "@helpers/utils";
 
 const userFile = "users.json";
