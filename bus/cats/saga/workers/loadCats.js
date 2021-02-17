@@ -43,7 +43,6 @@ export function* loadCats() {
       }
     }
 
-    yield delay(2000);
     yield put(catsActions.fillCats(results));
   } catch (error) {
     if (isDevelopment) {
