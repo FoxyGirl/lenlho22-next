@@ -1,0 +1,28 @@
+.container {
+  max-width: 700px;
+  margin: 0 auto 40px;
+  border-bottom: 2px solid darkgray;
+}
+
+.wrap {
+  margin: 0;
+  padding: 20px 10px;
+  list-style: none;
+  font-family: Roboto;
+
+  a {
+    display: inline-block;
+    vertical-align: middle;
+    padding: 5px 10px;
+
+    &:hover,
+    &:focus {
+      color: blue;
+      text-decoration: underline;
+    }
+  }
+
+  li {
+    margin-bottom: 5px;
+  }
+}

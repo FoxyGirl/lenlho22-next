@@ -3,14 +3,20 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
+    "prebuild": "rimraf .next",
     "dev": "NODE_ENV=development next dev",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "start:prod": "yarn build && yarn start",
+    "analyze": "ANALYZE=true next build"
   },
   "dependencies": {
     "@apollo/client": "^3.3.8",
     "@apollo/react-hooks": "^4.0.0",
+    "@fullhuman/postcss-purgecss": "^4.0.0",
+    "@next/bundle-analyzer": "^10.0.7",
     "apollo-link-logger": "^2.0.0",
+    "clean-css": "^5.0.1",
     "graphql": "^15.5.0",
     "inspectpack": "^4.6.1",
     "ismobilejs": "^1.1.1",
@@ -20,6 +26,7 @@
     "next-transpile-modules": "^6.3.0",
     "node-fetch": "^2.6.1",
     "nookies": "^2.5.2",
+    "optimize-css-assets-webpack-plugin": "^5.0.4",
     "ramda": "^0.27.1",
     "react": "17.0.1",
     "react-dom": "17.0.1",
@@ -28,6 +35,8 @@
     "redux-devtools-extension": "^2.13.8",
     "redux-logger": "^3.0.6",
     "redux-saga": "^1.1.3",
+    "rimraf": "^3.0.2",
+    "sass": "^1.32.7",
     "winston": "^3.3.3"
   },
   "devDependencies": {

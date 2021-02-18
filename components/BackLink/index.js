@@ -1,6 +1,6 @@
 import { useRouter } from "next/router";
 
-import styles from "@styles/BackLink.module.css";
+import styles from "./BackLink.module.scss";
 
 const BackLink = () => {
   const router = useRouter();
