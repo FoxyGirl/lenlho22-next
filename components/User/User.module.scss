@@ -6,11 +6,11 @@
   font-weight: bold;
   outline: none;
   transition: all 0.3s;
-}
 
-.btn:hover,
-.btn:focus {
-  background-color: darkblue;
+  &:hover,
+  &:focus {
+    background-color: darkblue;
+  }
 }
 
 .info {

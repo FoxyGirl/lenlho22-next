@@ -1,0 +1,20 @@
+.link {
+  position: relative;
+  font-weight: bold;
+  font-size: 20px;
+  color: blue;
+  cursor: pointer;
+  font-family: Roboto, sans-serif;
+
+  &:hover,
+  &:focus {
+    color: darkblue;
+  }
+
+  &::before {
+    content: "<-";
+    display: inline-block;
+    vertical-align: baseline;
+    margin-right: 10px;
+  }
+}
