@@ -4,6 +4,7 @@ import { initialDispatcher } from "@init/initialDispatcher";
 import { useResetType } from "@hooks/useResetType";
 import { PAGE_STYLES } from "@helpers/constants";
 
+import Layout from "@components/Layout";
 import Menu from "@components/Menu";
 import User from "@components/User";
 
@@ -21,10 +22,13 @@ const UserPage = () => {
   useResetType();
 
   return (
-    <div style={PAGE_STYLES}>
-      <Menu />
-      <User />
-    </div>
+    <Layout title="User">
+      <div style={PAGE_STYLES}>
+        <Menu />
+        <User />
+      </div>
+    </Layout>
   );
 };
+
 export default UserPage;

@@ -16,6 +16,7 @@ import { useResetType } from "@hooks/useResetType";
 import { serverDispatch } from "@helpers/serverDispatch";
 import { disableSaga } from "@helpers/disableSaga";
 
+import Layout from "@components/Layout";
 import Asteroids from "@bus/asteroids/Asteroids";
 import { Cats } from "@bus/cats/catsComponent";
 import Message from "@components/Message";
@@ -69,15 +70,17 @@ const HomePage = () => {
   }, []);
 
   return (
-    <div style={PAGE_STYLES}>
-      <Menu />
-      <Message />
-      <Cats />
-      <hr />
-      <Asteroids />
-      <hr />
-      <Pokemons />
-    </div>
+    <Layout title="Home">
+      <div style={PAGE_STYLES}>
+        <Menu />
+        <Message />
+        <Cats />
+        <hr />
+        <Asteroids />
+        <hr />
+        <Pokemons />
+      </div>
+    </Layout>
   );
 };
 export default HomePage;

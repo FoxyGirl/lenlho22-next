@@ -11,6 +11,7 @@ import { serverDispatch } from "@helpers/serverDispatch";
 import { isAllowedRoute } from "@hooks/statusRedirectHooks";
 import { useResetType } from "@hooks/useResetType";
 
+import Layout from "@components/Layout";
 import Menu from "@components/Menu";
 import Cars from "@components/Cars";
 import BackLink from "@components/BackLink";
@@ -63,11 +64,13 @@ const CarsPage = () => {
   useResetType();
 
   return (
-    <div style={PAGE_STYLES}>
-      <Menu />
-      <BackLink />
-      <Cars />
-    </div>
+    <Layout title="Cars">
+      <div style={PAGE_STYLES}>
+        <Menu />
+        <BackLink />
+        <Cars />
+      </div>
+    </Layout>
   );
 };
 export default CarsPage;

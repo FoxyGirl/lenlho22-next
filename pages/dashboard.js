@@ -14,6 +14,7 @@ import { getNews, getDiscounts, getCars } from "@helpers/dataUtils";
 import { serverDispatch } from "@helpers/serverDispatch";
 import { useResetType } from "@hooks/useResetType";
 
+import Layout from "@components/Layout";
 import Menu from "@components/Menu";
 import styles from "@styles/Dashboard.module.scss";
 
@@ -107,12 +108,14 @@ const DashboardPage = () => {
   ));
 
   return (
-    <div style={PAGE_STYLES}>
-      <Menu />
-      <div className={styles.container}>
-        <ul className={styles.wrap}>{asideMenuItemsJSX}</ul>
+    <Layout title="Dashboard">
+      <div style={PAGE_STYLES}>
+        <Menu />
+        <div className={styles.container}>
+          <ul className={styles.wrap}>{asideMenuItemsJSX}</ul>
+        </div>
       </div>
-    </div>
+    </Layout>
   );
 };
 

@@ -11,6 +11,7 @@ import { serverDispatch } from "@helpers/serverDispatch";
 import { isAllowedRoute } from "@hooks/statusRedirectHooks";
 import { useResetType } from "@hooks/useResetType";
 
+import Layout from "@components/Layout";
 import Menu from "@components/Menu";
 import Discount from "@components/Discount";
 import BackLink from "@components/BackLink";
@@ -76,12 +77,14 @@ const DiscountPage = () => {
   useResetType();
 
   return (
-    <div style={PAGE_STYLES}>
-      <Menu />
-      <BackLink />
-      <h1>Discount</h1>
-      <Discount />
-    </div>
+    <Layout title="Discount">
+      <div style={PAGE_STYLES}>
+        <Menu />
+        <BackLink />
+        <h1>Discount</h1>
+        <Discount />
+      </div>
+    </Layout>
   );
 };
 export default DiscountPage;

@@ -10,6 +10,7 @@ import { PAGE_STYLES } from "@helpers/constants";
 import { serverDispatch } from "@helpers/serverDispatch";
 import { useResetType } from "@hooks/useResetType";
 
+import Layout from "@components/Layout";
 import Menu from "@components/Menu";
 import Article from "@components/Article";
 import BackLink from "@components/BackLink";
@@ -63,12 +64,14 @@ const ArticlePage = () => {
   useResetType();
 
   return (
-    <div style={PAGE_STYLES}>
-      <Menu />
-      <BackLink />
-      <h1>Article</h1>
-      <Article />
-    </div>
+    <Layout title="Article">
+      <div style={PAGE_STYLES}>
+        <Menu />
+        <BackLink />
+        <h1>Article</h1>
+        <Article />
+      </div>
+    </Layout>
   );
 };
 export default ArticlePage;
