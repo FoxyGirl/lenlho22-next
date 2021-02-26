@@ -11,7 +11,6 @@ import { asteroidsActions } from "@bus/asteroids/actions";
 import { selectAsteroids } from "@bus/selectors";
 import { catsActions } from "@bus/cats/actions";
 
-import { PAGE_STYLES } from "@helpers/constants";
 import { useResetType } from "@hooks/useResetType";
 import { serverDispatch } from "@helpers/serverDispatch";
 import { disableSaga } from "@helpers/disableSaga";
@@ -71,15 +70,13 @@ const HomePage = () => {
 
   return (
     <Layout title="Home">
-      <div style={PAGE_STYLES}>
-        <Menu />
-        <Message />
-        <Cats />
-        <hr />
-        <Asteroids />
-        <hr />
-        <Pokemons />
-      </div>
+      <Menu />
+      <Message />
+      <Cats />
+      <hr />
+      <Asteroids />
+      <hr />
+      <Pokemons />
     </Layout>
   );
 };

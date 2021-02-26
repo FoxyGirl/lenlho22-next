@@ -2,7 +2,6 @@ import { initializeStore } from "@init/store";
 import { initialDispatcher } from "@init/initialDispatcher";
 
 import { useResetType } from "@hooks/useResetType";
-import { PAGE_STYLES } from "@helpers/constants";
 
 import Layout from "@components/Layout";
 import Menu from "@components/Menu";
@@ -23,10 +22,8 @@ const UserPage = () => {
 
   return (
     <Layout title="User">
-      <div style={PAGE_STYLES}>
-        <Menu />
-        <User />
-      </div>
+      <Menu />
+      <User />
     </Layout>
   );
 };

@@ -6,7 +6,6 @@ import { carsActions } from "@bus/cars/actions";
 import { selectCars, selectUserType } from "@bus/selectors";
 
 import { getCars } from "@helpers/dataUtils";
-import { PAGE_STYLES } from "@helpers/constants";
 import { serverDispatch } from "@helpers/serverDispatch";
 import { isAllowedRoute } from "@hooks/statusRedirectHooks";
 import { useResetType } from "@hooks/useResetType";
@@ -78,12 +77,10 @@ const CarPage = () => {
 
   return (
     <Layout title="Car">
-      <div style={PAGE_STYLES}>
-        <Menu />
-        <BackLink />
-        <h1>Car</h1>
-        <Car />
-      </div>
+      <Menu />
+      <BackLink />
+      <h1>Car</h1>
+      <Car />
     </Layout>
   );
 };

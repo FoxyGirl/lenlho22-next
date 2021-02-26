@@ -9,7 +9,6 @@ import { discountsActions } from "@bus/discounts/actions";
 import { carsActions } from "@bus/cars/actions";
 import { selectNews, selectDiscounts, selectCars } from "@bus/selectors";
 
-import { PAGE_STYLES } from "@helpers/constants";
 import { getNews, getDiscounts, getCars } from "@helpers/dataUtils";
 import { serverDispatch } from "@helpers/serverDispatch";
 import { useResetType } from "@hooks/useResetType";
@@ -109,11 +108,9 @@ const DashboardPage = () => {
 
   return (
     <Layout title="Dashboard">
-      <div style={PAGE_STYLES}>
-        <Menu />
-        <div className={styles.container}>
-          <ul className={styles.wrap}>{asideMenuItemsJSX}</ul>
-        </div>
+      <Menu />
+      <div className={styles.container}>
+        <ul className={styles.wrap}>{asideMenuItemsJSX}</ul>
       </div>
     </Layout>
   );

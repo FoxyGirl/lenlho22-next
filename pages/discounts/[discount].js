@@ -6,7 +6,6 @@ import { discountsActions } from "@bus/discounts/actions";
 import { selectDiscounts, selectUserType } from "@bus/selectors";
 
 import { getDiscounts } from "@helpers/dataUtils";
-import { PAGE_STYLES } from "@helpers/constants";
 import { serverDispatch } from "@helpers/serverDispatch";
 import { isAllowedRoute } from "@hooks/statusRedirectHooks";
 import { useResetType } from "@hooks/useResetType";
@@ -78,12 +77,10 @@ const DiscountPage = () => {
 
   return (
     <Layout title="Discount">
-      <div style={PAGE_STYLES}>
-        <Menu />
-        <BackLink />
-        <h1>Discount</h1>
-        <Discount />
-      </div>
+      <Menu />
+      <BackLink />
+      <h1>Discount</h1>
+      <Discount />
     </Layout>
   );
 };

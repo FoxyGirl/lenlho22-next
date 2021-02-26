@@ -6,7 +6,6 @@ import { newsActions } from "@bus/news/actions";
 import { selectNews } from "@bus/selectors";
 
 import { getNews } from "@helpers/dataUtils";
-import { PAGE_STYLES } from "@helpers/constants";
 import { serverDispatch } from "@helpers/serverDispatch";
 import { useResetType } from "@hooks/useResetType";
 
@@ -65,12 +64,10 @@ const ArticlePage = () => {
 
   return (
     <Layout title="Article">
-      <div style={PAGE_STYLES}>
-        <Menu />
-        <BackLink />
-        <h1>Article</h1>
-        <Article />
-      </div>
+      <Menu />
+      <BackLink />
+      <h1>Article</h1>
+      <Article />
     </Layout>
   );
 };
