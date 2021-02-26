@@ -6,11 +6,11 @@ import { carsActions } from "@bus/cars/actions";
 import { selectCars, selectUserType } from "@bus/selectors";
 
 import { getCars } from "@helpers/dataUtils";
-import { PAGE_STYLES } from "@helpers/constants";
 import { serverDispatch } from "@helpers/serverDispatch";
 import { isAllowedRoute } from "@hooks/statusRedirectHooks";
 import { useResetType } from "@hooks/useResetType";
 
+import Layout from "@components/Layout";
 import Menu from "@components/Menu";
 import Car from "@components/Car";
 import BackLink from "@components/BackLink";
@@ -76,12 +76,12 @@ const CarPage = () => {
   useResetType();
 
   return (
-    <div style={PAGE_STYLES}>
+    <Layout title="Car">
       <Menu />
       <BackLink />
       <h1>Car</h1>
       <Car />
-    </div>
+    </Layout>
   );
 };
 export default CarPage;

@@ -6,11 +6,11 @@ import { discountsActions } from "@bus/discounts/actions";
 import { selectDiscounts, selectUserType } from "@bus/selectors";
 
 import { getDiscounts } from "@helpers/dataUtils";
-import { PAGE_STYLES } from "@helpers/constants";
 import { serverDispatch } from "@helpers/serverDispatch";
 import { isAllowedRoute } from "@hooks/statusRedirectHooks";
 import { useResetType } from "@hooks/useResetType";
 
+import Layout from "@components/Layout";
 import Menu from "@components/Menu";
 import Discount from "@components/Discount";
 import BackLink from "@components/BackLink";
@@ -76,12 +76,12 @@ const DiscountPage = () => {
   useResetType();
 
   return (
-    <div style={PAGE_STYLES}>
+    <Layout title="Discount">
       <Menu />
       <BackLink />
       <h1>Discount</h1>
       <Discount />
-    </div>
+    </Layout>
   );
 };
 export default DiscountPage;
