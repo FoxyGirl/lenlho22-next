@@ -9,11 +9,11 @@ import { discountsActions } from "@bus/discounts/actions";
 import { carsActions } from "@bus/cars/actions";
 import { selectNews, selectDiscounts, selectCars } from "@bus/selectors";
 
-import { PAGE_STYLES } from "@helpers/constants";
 import { getNews, getDiscounts, getCars } from "@helpers/dataUtils";
 import { serverDispatch } from "@helpers/serverDispatch";
 import { useResetType } from "@hooks/useResetType";
 
+import Layout from "@components/Layout";
 import Menu from "@components/Menu";
 import styles from "@styles/Dashboard.module.scss";
 
@@ -107,12 +107,12 @@ const DashboardPage = () => {
   ));
 
   return (
-    <div style={PAGE_STYLES}>
+    <Layout title="Dashboard">
       <Menu />
       <div className={styles.container}>
         <ul className={styles.wrap}>{asideMenuItemsJSX}</ul>
       </div>
-    </div>
+    </Layout>
   );
 };
 

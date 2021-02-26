@@ -6,10 +6,10 @@ import { newsActions } from "@bus/news/actions";
 import { selectNews } from "@bus/selectors";
 
 import { getNews } from "@helpers/dataUtils";
-import { PAGE_STYLES } from "@helpers/constants";
 import { serverDispatch } from "@helpers/serverDispatch";
 import { useResetType } from "@hooks/useResetType";
 
+import Layout from "@components/Layout";
 import Menu from "@components/Menu";
 import News from "@components/News";
 import BackLink from "@components/BackLink";
@@ -48,11 +48,11 @@ const NewsPage = () => {
   useResetType();
 
   return (
-    <div style={PAGE_STYLES}>
+    <Layout title="News">
       <Menu />
       <BackLink />
       <News />
-    </div>
+    </Layout>
   );
 };
 export default NewsPage;
