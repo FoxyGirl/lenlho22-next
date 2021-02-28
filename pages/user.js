@@ -16,7 +16,7 @@ export const getServerSideProps = async (context) => {
   return {
     props: {
       initialReduxState: stateUpdates,
-      ...(await serverSideTranslations(locale, ["common"])),
+      ...(await serverSideTranslations(locale, ["common", "user"])),
     },
   };
 };
