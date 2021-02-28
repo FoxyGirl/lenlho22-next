@@ -1,0 +1,11 @@
+{
+  "welcome": {
+    "guest": "Salutations, vagabond!",
+    "friend": "Salut l'ami!",
+    "familyMember": "Bienvenue à la famille!",
+    "unknown": "État inconnu"
+  },
+  "cats": "Chats",
+  "asteroids": "Astéroïdes",
+  "pokemons": "Pokémons"
+}

@@ -1,7 +1,11 @@
+import { useTranslation } from "next-i18next";
+
 // Hooks
 import { usePokemons } from "@bus/pokemons/hooks/usePokemons";
 
 const Pokemons = () => {
+  const { t } = useTranslation();
+
   const { pokemons } = usePokemons();
 
   const pokemonsJSX =
@@ -9,7 +13,7 @@ const Pokemons = () => {
 
   return (
     <section>
-      <h1>Pokemons</h1>
+      <h1>{t("home:pokemons")}</h1>
       <ul>{pokemonsJSX}</ul>
     </section>
   );
