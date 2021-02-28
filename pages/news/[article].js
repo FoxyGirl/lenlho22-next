@@ -57,7 +57,7 @@ export const getServerSideProps = async (context) => {
   return {
     props: {
       initialReduxState,
-      ...(await serverSideTranslations(locale, ["common"])),
+      ...(await serverSideTranslations(locale, ["common", "dashboard"])),
     },
   };
 };
@@ -68,7 +68,6 @@ const ArticlePage = () => {
   return (
     <Layout title="Article">
       <BackLink />
-      <h1>Article</h1>
       <Article />
     </Layout>
   );
