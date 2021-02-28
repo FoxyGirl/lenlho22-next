@@ -5,19 +5,22 @@ import styles from "./LangSwitcher.module.scss";
 
 const LangSwitcher = () => {
   const { locale } = useRouter();
-  // console.log("locale", locale);
 
   const {
     i18n: { locales },
   } = nextI18NextConfig;
 
-  // console.log("locales", locales);
-
   const alternativeLangs = locales.filter((lang) => lang !== locale);
 
   const changeLocale = (lang) => () => {
-    // console.log("changeLocale");
-    window.location.href = window.location.href.replace(locale, lang);
+    const currentHref = window.location.href;
+
+    if (currentHref.includes(locale)) {
+      window.location.href = currentHref.replace(locale, lang);
+    } else {
+      const host = window.location.host;
+      window.location.href = currentHref.replace(host, `${host}/${lang}`);
+    }
   };
 
   return (
