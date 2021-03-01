@@ -1,5 +1,5 @@
 const path = require("path");
-const fs = require("fs").promises;
+const fs = require("fs-extra");
 const key = require("../../../../helpers/getRandomKey");
 
 const DIR_PATH = "logs/rest";
@@ -20,7 +20,8 @@ const rest = async (req, res) => {
     const logPath = path.resolve(DIR_PATH, `${logId}.json`);
     const logData = { ...log, payload: body };
     try {
-      await fs.writeFile(logPath, JSON.stringify(logData), "utf-8");
+      await fs.ensureFile(logPath);
+      await fs.writeJson(logPath, logData);
 
       res.status(201).json({
         name: "POST response",
@@ -35,15 +36,11 @@ const rest = async (req, res) => {
     try {
       const filenames = await fs.readdir(DIR_PATH);
 
-      const response = [];
-
-      for (let filename of filenames) {
-        const fileContent = await fs.readFile(
-          `${DIR_PATH}/${filename}`,
-          "utf-8"
-        );
-        response.push(JSON.parse(fileContent));
-      }
+      const response = await Promise.all(
+        filenames.map((filename) => {
+          return fs.readJson(`${DIR_PATH}/${filename}`);
+        })
+      );
 
       res.status(200).json({
         logs: userId

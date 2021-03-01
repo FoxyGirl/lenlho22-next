@@ -1,10 +1,11 @@
 import { useSelector } from "react-redux";
-import { getGreetingText } from "@helpers/utils";
+import useGetGreetingText from "@hooks/useGetGreetingText";
 
 const Message = () => {
   const { userType } = useSelector((state) => state.user);
+  const message = useGetGreetingText(userType);
 
-  return <h1>{getGreetingText(userType)}</h1>;
+  return <h1>{message}</h1>;
 };
 
 export default Message;
