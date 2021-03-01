@@ -1,4 +1,5 @@
 import * as R from "ramda";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 
 import { initializeStore } from "@init/store";
 import { initialDispatcher } from "@init/initialDispatcher";
@@ -11,11 +12,12 @@ import { isAllowedRoute } from "@hooks/statusRedirectHooks";
 import { useResetType } from "@hooks/useResetType";
 
 import Layout from "@components/Layout";
-import Menu from "@components/Menu";
 import Car from "@components/Car";
 import BackLink from "@components/BackLink";
 
 export const getServerSideProps = async (context) => {
+  const { locale } = context;
+
   const { store, stateUpdates } = await initialDispatcher(
     context,
     initializeStore()
@@ -68,6 +70,7 @@ export const getServerSideProps = async (context) => {
   return {
     props: {
       initialReduxState,
+      ...(await serverSideTranslations(locale, ["common", "dashboard"])),
     },
   };
 };
@@ -77,9 +80,7 @@ const CarPage = () => {
 
   return (
     <Layout title="Car">
-      <Menu />
       <BackLink />
-      <h1>Car</h1>
       <Car />
     </Layout>
   );

@@ -1,14 +1,13 @@
 // Core
 import { useSelector } from "react-redux";
-import { useEffect } from "react";
-
-// Actions
-import { catsActions } from "./actions";
+import { useTranslation } from "next-i18next";
 
 // Selectors
 import { selectCatsEntries } from "./selectors";
 
 export const Cats = () => {
+  const { t } = useTranslation();
+
   const entries = useSelector(selectCatsEntries);
 
   const entriesJSX =
@@ -16,7 +15,7 @@ export const Cats = () => {
 
   return (
     <>
-      <h1>Cats</h1>
+      <h1>{t("home:cats")}</h1>
       {entriesJSX}
     </>
   );

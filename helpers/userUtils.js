@@ -1,6 +1,6 @@
 import nookies from "nookies";
-import writeFile from "./writeFile";
-import readFile from "./readFile";
+import writeFile from "./writeFileExtra";
+import readFile from "./readFileExtra";
 import { getRandomKey } from "./getRandomKey";
 import { getUserStatus } from "@helpers/utils";
 

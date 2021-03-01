@@ -12,6 +12,8 @@ const withTM = require("next-transpile-modules")([
   "is-stream",
 ]);
 
+const { i18n } = require("./init/next-i18next.config");
+
 const withBundleAnalyzer = require("@next/bundle-analyzer")({
   enabled: process.env.ANALYZE === "true",
 });
@@ -85,5 +87,7 @@ module.exports = withPlugins(
       ANDROID_VERSION_FOR_DELAY: 8,
       IOS_VERSION_FOR_DELAY: 12.5,
     },
+
+    i18n,
   }
 );

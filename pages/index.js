@@ -1,6 +1,9 @@
 import * as R from "ramda";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
+import { useRouter } from "next/router";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import { useTranslation } from "next-i18next";
 
 import { initializeStore } from "@init/store";
 import { initialDispatcher } from "@init/initialDispatcher";
@@ -19,10 +22,11 @@ import Layout from "@components/Layout";
 import Asteroids from "@bus/asteroids/Asteroids";
 import { Cats } from "@bus/cats/catsComponent";
 import Message from "@components/Message";
-import Menu from "@components/Menu";
 import Pokemons from "@bus/pokemons/Pokemons";
 
 export const getServerSideProps = async (context) => {
+  const { locale } = context;
+
   const { store, stateUpdates } = await initialDispatcher(
     context,
     initializeStore()
@@ -55,6 +59,7 @@ export const getServerSideProps = async (context) => {
     props: {
       initialReduxState,
       initialApolloState,
+      ...(await serverSideTranslations(locale, ["common", "home"])),
     },
   };
 };
@@ -64,13 +69,14 @@ const HomePage = () => {
 
   const dispatch = useDispatch();
 
+  const { t } = useTranslation();
+
   useEffect(() => {
     dispatch(catsActions.loadCatsAsync());
   }, []);
 
   return (
-    <Layout title="Home">
-      <Menu />
+    <Layout title={t("common:home")}>
       <Message />
       <Cats />
       <hr />

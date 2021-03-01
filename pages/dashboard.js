@@ -1,6 +1,8 @@
 import * as R from "ramda";
 import Link from "next/link";
 import { useSelector } from "react-redux";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import { useTranslation } from "next-i18next";
 
 import { initializeStore } from "@init/store";
 import { initialDispatcher } from "@init/initialDispatcher";
@@ -14,10 +16,11 @@ import { serverDispatch } from "@helpers/serverDispatch";
 import { useResetType } from "@hooks/useResetType";
 
 import Layout from "@components/Layout";
-import Menu from "@components/Menu";
 import styles from "@styles/Dashboard.module.scss";
 
 export const getServerSideProps = async (context) => {
+  const { locale } = context;
+
   const { store, stateUpdates } = await initialDispatcher(
     context,
     initializeStore()
@@ -49,6 +52,7 @@ export const getServerSideProps = async (context) => {
   return {
     props: {
       initialReduxState,
+      ...(await serverSideTranslations(locale, ["common", "dashboard"])),
     },
   };
 };
@@ -57,22 +61,23 @@ const dashboardMenu = [
   {
     id: "news",
     href: "/news",
-    name: "News",
+    name: "news",
   },
   {
     id: "discounts",
     href: "/discounts",
-    name: "Discounts",
+    name: "discounts",
   },
   {
     id: "cars",
     href: "/cars",
-    name: "Cars",
+    name: "cars",
   },
 ];
 
 const DashboardPage = () => {
   useResetType();
+  const { t } = useTranslation();
 
   const news = useSelector(selectNews);
   const discounts = useSelector(selectDiscounts);
@@ -100,7 +105,7 @@ const DashboardPage = () => {
   const asideMenuItemsJSX = dashboardMenu.map(({ id: menuId, href, name }) => (
     <li key={menuId}>
       <Link href={href}>
-        <a>{name}</a>
+        <a>{t(`dashboard:${name}`)}</a>
       </Link>
       {renderSubmenuJSX(menuId)}
     </li>
@@ -108,7 +113,6 @@ const DashboardPage = () => {
 
   return (
     <Layout title="Dashboard">
-      <Menu />
       <div className={styles.container}>
         <ul className={styles.wrap}>{asideMenuItemsJSX}</ul>
       </div>
