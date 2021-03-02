@@ -37,3 +37,26 @@ export const increaseUserStatus = (userStatus) => {
       return "Unknown";
   }
 };
+
+const localeOptions = {
+  en: "en-US",
+  ru: "ru-RU",
+  fr: "fr-FR",
+};
+
+export const formateDate = (date, lang = "en") => {
+  const options = {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+    hour: "numeric",
+    minute: "numeric",
+    second: "numeric",
+  };
+  const dateOfReceiving = new Date(date).toLocaleDateString(
+    localeOptions[lang],
+    options
+  );
+
+  return String(dateOfReceiving);
+};

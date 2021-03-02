@@ -16,7 +16,7 @@ const getDateOfReceiving = () => {
 
 const updateDate = (item) => ({
   ...item,
-  dateOfReceiving: getDateOfReceiving(),
+  dateOfReceiving: new Date().getTime(),
 });
 
 export const getDataFromFile = (fileName) => async () => {
