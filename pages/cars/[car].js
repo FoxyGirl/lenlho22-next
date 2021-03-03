@@ -14,6 +14,7 @@ import { useResetType } from "@hooks/useResetType";
 import Layout from "@components/Layout";
 import Car from "@components/Car";
 import BackLink from "@components/BackLink";
+import withAccessDenied from "@components/utils/withAccessDenied";
 
 export const getServerSideProps = async (context) => {
   const { locale } = context;
@@ -85,4 +86,5 @@ const CarPage = () => {
     </Layout>
   );
 };
-export default CarPage;
+
+export default withAccessDenied(CarPage);

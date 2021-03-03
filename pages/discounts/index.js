@@ -14,6 +14,7 @@ import { useResetType } from "@hooks/useResetType";
 import Layout from "@components/Layout";
 import Discounts from "@components/Discounts";
 import BackLink from "@components/BackLink";
+import withAccessDenied from "@components/utils/withAccessDenied";
 
 export const getServerSideProps = async (context) => {
   const { locale } = context;
@@ -72,4 +73,5 @@ const DiscountsPage = () => {
     </Layout>
   );
 };
-export default DiscountsPage;
+
+export default withAccessDenied(DiscountsPage);

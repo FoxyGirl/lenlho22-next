@@ -13,6 +13,7 @@ import { useResetType } from "@hooks/useResetType";
 import Layout from "@components/Layout";
 import News from "@components/News";
 import BackLink from "@components/BackLink";
+import withAccessDenied from "@components/utils/withAccessDenied";
 
 export const getServerSideProps = async (context) => {
   const { locale } = context;
@@ -57,4 +58,5 @@ const NewsPage = () => {
     </Layout>
   );
 };
-export default NewsPage;
+
+export default withAccessDenied(NewsPage);
