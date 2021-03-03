@@ -2,5 +2,11 @@
   "title": "Bonjour",
   "home": "Central",
   "dashboard": "Tableau de bord",
-  "user": "Utilisateur"
+  "user": "Utilisateur",
+  "access_title": "L'accès est refusé",
+  "access_text": "Vous devez être connecté pour afficher cette page",
+  "access_signin": "Vous n'êtes pas connecté",
+  "access_signed": "Connecté en tant que",
+  "button_signin": "Сonnexion",
+  "button_signout": "Déconnexion"
 }

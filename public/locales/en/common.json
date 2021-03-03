@@ -2,5 +2,11 @@
   "title": "Hello",
   "home": "Home",
   "dashboard": "Dashboard",
-  "user": "User"
+  "user": "User",
+  "access_title": "Access Denied",
+  "access_text": "You must be signed in to view this page",
+  "access_signin": "You are not signed inSign in",
+  "access_signed": "Signed in as",
+  "button_signin": "Sign in",
+  "button_signout": "Sign out"
 }

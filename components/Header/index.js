@@ -1,5 +1,6 @@
-import Link from "next/link";
 import { signIn, signOut, useSession } from "next-auth/client";
+import { useTranslation } from "next-i18next";
+
 import styles from "./Header.module.scss";
 
 // The approach used in this component shows how to built a sign in and sign out
@@ -7,6 +8,7 @@ import styles from "./Header.module.scss";
 // rendering, and avoids any flash incorrect content on initial page load.
 export default function Header() {
   const [session, loading] = useSession();
+  const { t } = useTranslation();
 
   return (
     <header>
@@ -22,7 +24,7 @@ export default function Header() {
           {!session && (
             <>
               <span className={styles.notSignedInText}>
-                You are not signed in
+                {t("common:access_signin")}
               </span>
               <a
                 href={`/api/auth/signin`}
@@ -32,7 +34,7 @@ export default function Header() {
                   signIn();
                 }}
               >
-                Sign in
+                {t("common:button_signin")}
               </a>
             </>
           )}
@@ -45,7 +47,7 @@ export default function Header() {
                 />
               )}
               <span className={styles.signedInText}>
-                <small>Signed in as</small>
+                <small> {t("common:access_signed")}</small>
                 <br />
                 <strong>{session.user.email || session.user.name}</strong>
               </span>
@@ -57,7 +59,7 @@ export default function Header() {
                   signOut();
                 }}
               >
-                Sign out
+                {t("common:button_signout")}
               </a>
             </>
           )}

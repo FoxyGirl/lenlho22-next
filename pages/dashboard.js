@@ -3,6 +3,8 @@ import Link from "next/link";
 import { useSelector } from "react-redux";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { useTranslation } from "next-i18next";
+import { useSession } from "next-auth/client";
+import AccessDenied from "@components/AccessDenied";
 
 import { initializeStore } from "@init/store";
 import { initialDispatcher } from "@init/initialDispatcher";
@@ -77,6 +79,7 @@ const dashboardMenu = [
 
 const DashboardPage = () => {
   useResetType();
+  const [session, loading] = useSession();
   const { t } = useTranslation();
 
   const news = useSelector(selectNews);
@@ -110,6 +113,17 @@ const DashboardPage = () => {
       {renderSubmenuJSX(menuId)}
     </li>
   ));
+
+  // When rendering client side don't display anything until loading is complete
+  if (typeof window !== "undefined" && loading) return null;
+
+  if (!session) {
+    return (
+      <Layout>
+        <AccessDenied />
+      </Layout>
+    );
+  }
 
   return (
     <Layout title="Dashboard">
