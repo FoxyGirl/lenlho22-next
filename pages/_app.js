@@ -2,6 +2,7 @@
 import { Provider } from "react-redux";
 import { ApolloProvider } from "@apollo/react-hooks";
 import { appWithTranslation } from "next-i18next";
+import { Provider as NextAuthProvider } from "next-auth/client";
 
 // Other
 import { useStore } from "@init/store";
@@ -15,11 +16,19 @@ function MyApp({ Component, pageProps }) {
   const apolloCLient = useApollo(pageProps.initialApolloState);
 
   return (
-    <Provider store={store}>
-      <ApolloProvider client={apolloCLient}>
-        <Component {...pageProps} />
-      </ApolloProvider>
-    </Provider>
+    <NextAuthProvider
+      options={{
+        clientMaxAge: 0,
+        keepalive: 0,
+      }}
+      session={pageProps.session}
+    >
+      <Provider store={store}>
+        <ApolloProvider client={apolloCLient}>
+          <Component {...pageProps} />
+        </ApolloProvider>
+      </Provider>
+    </NextAuthProvider>
   );
 }
 
