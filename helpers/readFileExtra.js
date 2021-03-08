@@ -1,8 +1,12 @@
 const fs = require("fs-extra");
+const path = require("path");
+
+const DIR_PATH = "public/data/";
 
 const readFileAsync = async (fileName) => {
   try {
-    const data = await fs.readJson(`./data/${fileName}`);
+    const filePath = path.resolve(DIR_PATH, fileName);
+    const data = await fs.readJson(filePath);
 
     return data;
   } catch (error) {
