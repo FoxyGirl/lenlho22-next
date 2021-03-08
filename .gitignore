@@ -35,5 +35,7 @@ yarn-error.log*
 
 # data in json files
 /data
+
 /logs/rest/*
 /logs/graphql/*
+tmp

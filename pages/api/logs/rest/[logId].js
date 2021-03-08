@@ -1,5 +1,5 @@
 const fs = require("fs-extra");
-const DIR_PATH = "logs/rest";
+const DIR_PATH = "tmp/logs/rest";
 
 const rest = async (req, res) => {
   try {

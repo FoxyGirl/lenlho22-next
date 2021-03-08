@@ -2,7 +2,7 @@ const path = require("path");
 const fs = require("fs-extra");
 const key = require("../../../../helpers/getRandomKey");
 
-const DIR_PATH = "logs/rest";
+const DIR_PATH = "tmp/logs/rest";
 
 const rest = async (req, res) => {
   if (req.method === "POST") {

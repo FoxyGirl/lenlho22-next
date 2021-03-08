@@ -1,5 +1,5 @@
 const fs = require("fs-extra");
-const DIR_PATH = "logs/graphql";
+const DIR_PATH = "tmp/logs/graphql";
 
 const graphql = async (req, res) => {
   try {
